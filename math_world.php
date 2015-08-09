@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src='./threejs/build/three.js'></script>
-<script src='./threejs/examples/js/loaders/OBJLoader.js'></script>
-<script src='./threejs/examples/js/loaders/ColladaLoader.js'></script>
-<script src='./threejs/examples/js/controls/FirstPersonControls.js'></script>
-<script src='./threejs/src/extras/THREEx/THREEx.FullScreen.js'></script>
-<script src='./threejs/src/extras/THREEx/THREEx.KeyboardState.js'></script>
-<script src='./threejs/src/extras/THREEx/THREEx.WindowResize.js'></script>
+<script src='../libs/threejs/build/three.js'></script>
+<script src='../libs/threejs/examples/js/loaders/OBJLoader.js'></script>
+<script src='../libs/threejs/examples/js/loaders/ColladaLoader.js'></script>
+<script src='../libs/threejs/examples/js/controls/FirstPersonControls.js'></script>
+<script src='../libs/threejs/src/extras/THREEx/THREEx.FullScreen.js'></script>
+<script src='../libs/threejs/src/extras/THREEx/THREEx.KeyboardState.js'></script>
+<script src='../libs/threejs/src/extras/THREEx/THREEx.WindowResize.js'></script>
 
 </head>
 <body>
@@ -57,11 +57,14 @@
 		this.Separator = 10;
 	};
 
-	function setNewColors(scene, INTERSECTED)
+	function setNewColors(scene, objects_array)
 	{		
-		for(i = 0; i < scene.children.length; i++)
+		for (var i = 0; i < objects_array.length; i++)
 		{
-			if (INTERSECTED != scene.children[i])
+			objects_array[i].material.emissive.setHex(Math.random() * 0xffffff);
+		}
+		for(var i = 0; i < scene.children.length; i++)
+		{
 				scene.children[i].material.emissive.setHex(Math.random() * 0xffffff);
 		}
 	}
@@ -77,9 +80,9 @@
 	function createLine(scene, count, objects_array)
 	{
 		var CubeParameters = new Cube_Parameters();
-		for (i = 0; i < count; i++)
+		for (var i = 0; i < count; i++)
 		{
-			var cube_material = new THREE.MeshLambertMaterial({emissive: 0x324f23, side: THREE.DoubleSide});
+			var cube_material = new THREE.MeshLambertMaterial({color: 0xb55489, side: THREE.DoubleSide});
 			var cube_geometry = new THREE.CubeGeometry(
 									CubeParameters.Width,
 									CubeParameters.Height,
@@ -136,7 +139,7 @@
 		var angle;
 		angle = 0.0;
 		var raycaster = new THREE.Raycaster();
-		var mouse_vector = new THREE.Vector2(), INTERSECTED;
+		var mouse_vector = new THREE.Vector2(), INTERSECTED, integral;
 		var ScreenParameters = new Screen_Parameters();
 		var CameraSettings = new Camera_Settings();
 		var keyboard = new THREEx.KeyboardState();
@@ -145,8 +148,6 @@
 		var planes = [];
 		var balls = [];
 		var cubes = [];
-
-
 		function onMouseMove(event)
 		{
 			mouse_vector.x = (event.clientX / window.innerWidth) * 2 - 1;
@@ -196,6 +197,26 @@
 
 		scene.add(plane);
 
+
+
+
+		var loader = new THREE.ColladaLoader();
+		loader.load(
+			"resources/3D/Integral.dae",
+			function(collada)
+			{
+				collada.scene.traverse(function(object)
+				{
+					if (object instanceof THREE.Mesh)
+					{
+						integral = object;
+						scene.add(integral);
+					}
+				});
+			}
+		);
+
+
 		// OUR GLOBAL LIGHTS
 		var	light = new THREE.PointLight(0xffffff, 1.8, 80000); // цвет, интенсивность, расстояние 
 		light.position.set(0,0,0); // устанавливаем позицию по x, y, z
@@ -221,7 +242,10 @@
 
 
 		createLine(scene, 1000, cubes);
-		setInterval(setNewColors, 1000, scene, INTERSECTED);
+		
+		setInterval(function(){
+			setNewColors(scene, cubes);
+		}, 1000);		
 
 		function animate()
 		{
@@ -253,9 +277,11 @@
 			requestAnimationFrame(animate);
 				controls.update(1);
 			renderer.render(scene, camera);
-		}
+			
 
-		animate();		
+		}
+		animate();	
+
 	}
 //END OF MathWorld FUNCTION
 

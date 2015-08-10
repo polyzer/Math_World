@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>MATH WORLD</title>
+	<meta charset="utf-8">
+</head>
+<body>
 <script src='../libs/threejs/build/three.js'></script>
 <script src='../libs/threejs/examples/js/loaders/OBJLoader.js'></script>
 <script src='../libs/threejs/examples/js/loaders/ColladaLoader.js'></script>
@@ -9,8 +13,16 @@
 <script src='../libs/threejs/src/extras/THREEx/THREEx.KeyboardState.js'></script>
 <script src='../libs/threejs/src/extras/THREEx/THREEx.WindowResize.js'></script>
 
-</head>
-<body>
+<script src="../libs/threejs/examples/fonts/gentilis_bold.typeface.js"></script>
+<script src="../libs/threejs/examples/fonts/gentilis_regular.typeface.js"></script>
+<script src="../libs/threejs/examples/fonts/optimer_bold.typeface.js"></script>
+<script src="../libs/threejs/examples/fonts/optimer_regular.typeface.js"></script>
+<script src="../libs/threejs/examples/fonts/helvetiker_bold.typeface.js"></script>
+<script src="../libs/threejs/examples/fonts/helvetiker_regular.typeface.js"></script>
+<script src="../libs/threejs/examples/fonts/droid/droid_sans_regular.typeface.js"></script>
+<script src="../libs/threejs/examples/fonts/droid/droid_sans_bold.typeface.js"></script>
+<script src="../libs/threejs/examples/fonts/droid/droid_serif_regular.typeface.js"></script>
+<script src="../libs/threejs/examples/fonts/droid/droid_serif_bold.typeface.js"></script>
 <script>
 
 	var Screen_Parameters = function()
@@ -139,7 +151,7 @@
 		var angle;
 		angle = 0.0;
 		var raycaster = new THREE.Raycaster();
-		var mouse_vector = new THREE.Vector2(), INTERSECTED, integral;
+		var mouse_vector = new THREE.Vector2(), INTERSECTED, integral, radical;
 		var ScreenParameters = new Screen_Parameters();
 		var CameraSettings = new Camera_Settings();
 		var keyboard = new THREEx.KeyboardState();
@@ -197,9 +209,6 @@
 
 		scene.add(plane);
 
-
-
-
 		var loader = new THREE.ColladaLoader();
 		loader.load(
 			"resources/3D/Integral.dae",
@@ -215,6 +224,49 @@
 				});
 			}
 		);
+		loader.load(			
+			"resources/3D/radical.dae",
+			function(collada)
+			{
+				collada.scene.traverse(function(object)
+				{
+					if (object instanceof THREE.Mesh)
+					{
+						radical = object;
+						radical.position.set(100, 100, 100);
+						scene.add(radical);
+					}
+				});
+			}
+		);
+
+				// add 3D text
+		var materialSide = new THREE.MeshLambertMaterial( { color: 0x003388 } );
+		var materialArray = [ materialSide];
+		var textGeom = new THREE.TextGeometry( "Hello, World!", 
+		{
+			size: 30, height: 4, curveSegments: 3,
+			font: "helvetiker", weight: "bold", style: "normal",
+			bevelThickness: 1, bevelSize: 2, bevelEnabled: true,
+			material: 0, extrudeMaterial: 1
+		});
+		// font: helvetiker, gentilis, droid sans, droid serif, optimer
+		// weight: normal, bold
+		
+		var textMesh = new THREE.Mesh(textGeom, materialSide );
+		
+		textGeom.computeBoundingBox();
+		var textWidth = textGeom.boundingBox.max.x - textGeom.boundingBox.min.x;
+		
+		textMesh.position.set( -0.5 * textWidth, 50, 100 );
+		textMesh.rotation.x = -Math.PI / 4;
+		scene.add(textMesh);
+
+
+
+
+
+
 
 
 		// OUR GLOBAL LIGHTS
@@ -246,6 +298,11 @@
 		setInterval(function(){
 			setNewColors(scene, cubes);
 		}, 1000);		
+		setInterval(function(){
+			radical.rotation.x += 0.02;
+			radical.rotation.y += 0.02;
+		}, 100);		
+
 
 		function animate()
 		{

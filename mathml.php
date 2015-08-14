@@ -3,32 +3,19 @@
 <head>
 <title>MathML Testing & Learning</title>
 <meta charset="UTF-8" />
-<script src='../libs/MathWorld_extra_functions.js'></script>
 </head>
+
 <body>
-<div id="symbols">
-	
+<div id="symbols">	
 </div>
-
-
-
-<math>
-	<mrow>
-		<msqrt>
-			<mrow>
-				<mi>x</mi>
-				<mo>+</mo>
-				<mn>12</mn>	
-			</mrow>
-		</msqrt>
-		<mo>=</mo>
-		<mi>y</mi>
-	</mrow>
-</math>
-
+<script src='./resources/js/MathWorld_extra_functions.js'></script>
 <script>
+
 	var symbols = document.getElementById("symbols");
-	symbols.innerHTML += "=" + "&#8800;";
+	for (var i = 0; i < mathSymbolsTable.length; i++)
+	{
+	symbols.innerHTML += mathSymbolsTable[i].htmlCode + " " + mathSymbolsTable[i].htmlName + "<br>";		
+	}
 </script>
 </body>
 </html>

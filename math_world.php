@@ -13,7 +13,7 @@
 <script src='../libs/threejs/src/extras/THREEx/THREEx.KeyboardState.js'></script>
 <script src='../libs/threejs/src/extras/THREEx/THREEx.WindowResize.js'></script>
 
-<script src='../libs/MathWorld_extra_functions.js'></script>
+<script src='../resources/js/MathWorld_extra_functions.js'></script>
 
 <script src="../libs/threejs/examples/fonts/gentilis_bold.typeface.js"></script>
 <script src="../libs/threejs/examples/fonts/gentilis_regular.typeface.js"></script>

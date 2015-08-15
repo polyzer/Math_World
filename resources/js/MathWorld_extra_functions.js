@@ -151,8 +151,36 @@ var MathWorld = new function()
 
 	this.greekLetters = new Object();
 
-	this.greekLetters.push(new this.Symbol({"latex":"", "html_name":"&pi;", "html_code":"&#960;", "description":"Пи"}));
-	this.greekLetters.push(new this.Symbol({"latex":"", "html_name":"&pi;", "html_code":"&#960;", "description":"Пи"}));
+	this.greekLetters.push(new this.Symbol({"latex":"\alpha", "html_name":"&alpha;", "html_code":"&#945;", "description":"альфа"}));
+	this.greekLetters.push(new this.Symbol({"latex":"\beta", "html_name":"&beta", "html_code":"&#946;", "description":"бета"}));
+	this.greekLetters.push(new this.Symbol({"latex":"\gamma", "html_name":"&gamma;", "html_code":"&#947;", "description":"гамма"}));
+	this.greekLetters.push(new this.Symbol({"latex":"\delta", "html_name":"&delta;", "html_code":"&#948;", "description":"дельта"}));
+	this.greekLetters.push(new this.Symbol({"latex":"\epsilon", "html_name":"&straightepsilon;", "html_code":"&#1013;", "description":"эпсилон"}));
+	this.greekLetters.push(new this.Symbol({"latex":"\varepsilon", "html_name":"&epsilon;", "html_code":"&#949;", "description":"эпсилон"}));
+	this.greekLetters.push(new this.Symbol({"latex":"\zeta", "html_name":"&zeta;", "html_code":"&#950;", "description":"зета"}));
+	this.greekLetters.push(new this.Symbol({"latex":"\eta", "html_name":"&eta;", "html_code":"&#951;", "description":"эта"}));
+	this.greekLetters.push(new this.Symbol({"latex":"\theta", "html_name":"&theta;", "html_code":"&#952;", "description":"сета"}));
+	this.greekLetters.push(new this.Symbol({"latex":"\vartheta", "html_name":"&thetasym;", "html_code":"&#977;", "description":"сета"}));
+	this.greekLetters.push(new this.Symbol({"latex":"\iota", "html_name":"&iota;", "html_code":"&#953;", "description":"йота"}));
+	this.greekLetters.push(new this.Symbol({"latex":"\kappa", "html_name":"&kappa;", "html_code":"&#954;", "description":"каппа"}));
+	this.greekLetters.push(new this.Symbol({"latex":"\lambda", "html_name":"&lambda;", "html_code":"&#955;", "description":"лямбда"}));
+	this.greekLetters.push(new this.Symbol({"latex":"\mu", "html_name":"&mu;", "html_code":"&#956;", "description":"мю"}));
+	this.greekLetters.push(new this.Symbol({"latex":"\nu", "html_name":"&nu;", "html_code":"&#957;", "description":"ню"}));
+	this.greekLetters.push(new this.Symbol({"latex":"\xi", "html_name":"&xi;", "html_code":"&#958;", "description":"кси"}));
+	this.greekLetters.push(new this.Symbol({"html_name":"&omicron;", "html_code":"&#959;", "description":"омикрон"}));
+	this.greekLetters.push(new this.Symbol({"latex":"\pi", "html_name":"&pi;", "html_code":"&#960;", "description":"пи"}));
+	this.greekLetters.push(new this.Symbol({"latex":"\varpi", "html_name":"&piv;", "html_code":"&#982;", "description":"пи"}));
+	this.greekLetters.push(new this.Symbol({"latex":"\rho", "html_name":"&rho;", "html_code":"&#961;", "description":"ро"}));
+	this.greekLetters.push(new this.Symbol({"latex":"\varrho", "html_name":"&varrho;", "html_code":"&#1009;", "description":"ро"}));
+	this.greekLetters.push(new this.Symbol({"latex":"\sigma", "html_name":"&sigma;", "html_code":"&#963;", "description":"сигма"}));
+	this.greekLetters.push(new this.Symbol({"latex":"\varsigma", "html_name":"&sigmaf;", "html_code":"&#962;", "description":"сигма"}));
+	this.greekLetters.push(new this.Symbol({"latex":"\tau", "html_name":"&tau;", "html_code":"&#964;", "description":"тау"}));
+	this.greekLetters.push(new this.Symbol({"latex":"\upsilon", "html_name":"&upsilon;", "html_code":"&#965;", "description":"апсилон"}));
+	this.greekLetters.push(new this.Symbol({"latex":"\phi", "html_name":"&straightphi;", "html_code":"&#981;", "description":"фи"}));
+	this.greekLetters.push(new this.Symbol({"latex":"\varphi", "html_name":"&phi;", "html_code":"&#966;", "description":"фи"}));
+	this.greekLetters.push(new this.Symbol({"latex":"\chi", "html_name":"&chi;", "html_code":"&#967;", "description":"чи"}));
+	this.greekLetters.push(new this.Symbol({"latex":"\psi", "html_name":"&пси;", "html_code":"&#968;", "description":"пси"}));
+	this.greekLetters.push(new this.Symbol({"latex":"\omega", "html_name":"&omega;", "html_code":"&#969;", "description":"омега"}));
 
 
 };

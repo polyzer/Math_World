@@ -12,9 +12,9 @@
 <script>
 
 	var symbols = document.getElementById("symbols");
-	for (var i = 0; i < mathSymbolsTable.length; i++)
+	for (var i = 0; i < MathWorld.mathSymbolsTable.length; i++)
 	{
-	symbols.innerHTML += mathSymbolsTable[i].htmlCode + " " + mathSymbolsTable[i].htmlName + "<br>";		
+	symbols.innerHTML += MathWorld.mathSymbolsTable[i].htmlCode + " " + MathWorld.mathSymbolsTable[i].htmlName + "<br>";		
 	}
 </script>
 </body>

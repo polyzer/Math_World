@@ -16,6 +16,11 @@
 	{
 	symbols.innerHTML += MathWorld.mathSymbolsTable[i].htmlCode + " " + MathWorld.mathSymbolsTable[i].htmlName + "<br>";		
 	}
+	for (var i = 0; i < MathWorld.greekLettersTable.length; i++)
+	{
+	symbols.innerHTML += MathWorld.greekLettersTable[i].htmlCode + " " + MathWorld.greekLettersTable[i].htmlName + "<br>";		
+	}
+
 </script>
 </body>
 </html>

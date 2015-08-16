@@ -8,6 +8,7 @@ var MathWorld = new function()
 	var MathElement;
 	var mathSymbolsTable;
 	var greekLettersTable;
+	var Parser;
 
 	this.Screen_Parameters = function()
 	{
@@ -63,6 +64,12 @@ var MathWorld = new function()
 		var MathObject3D; // 3D объект, который будет в сцене
 		var Name;
 	};
+
+	this.MathMLTag = function() 
+	{
+		var Name;
+		var Type; //container | opration | identificator | number
+	}
 
 	this.Symbol = function (args_json){
 		var htmlCode;
@@ -185,6 +192,11 @@ var MathWorld = new function()
 	this.greekLettersTable.push(new this.Symbol({"latex":"\\chi", "html_name":"&chi;", "html_code":"&#967;", "description":"чи"}));
 	this.greekLettersTable.push(new this.Symbol({"latex":"\\psi", "html_name":"&psi;", "html_code":"&#968;", "description":"пси"}));
 	this.greekLettersTable.push(new this.Symbol({"latex":"\\omega", "html_name":"&omega;", "html_code":"&#969;", "description":"омега"}));
+
+
+	this.Parser = function() {
+
+	};
 
 
 };

@@ -37,15 +37,15 @@
 
 <script>
 
-	function MathWorld()
+	function World()
 	{
 
 		var container, scene, camera, renderer, controls, stats;
 		var angle = 0.0;
 		var raycaster = new THREE.Raycaster();
 		var mouse_vector = new THREE.Vector2(), INTERSECTED, integral, radical, pi, nable;
-		var ScreenParameters = new Screen_Parameters();
-		var CameraSettings = new Camera_Settings();
+		var ScreenParameters = new MathWorld.Screen_Parameters();
+		var CameraSettings = new MathWorld.Camera_Settings();
 		var keyboard = new THREEx.KeyboardState();
 		var clock = new THREE.Clock();
 
@@ -94,8 +94,8 @@
 // OBJECTS DOWNLOAD AND DEFINITIONS
 
 		var Wall_Plane_g = new THREE.PlaneGeometry(10000, 300, 4000);
-		var Wall_Plane_m = new THREE.MeshLambertMaterial({color: 0xb55489, side: THREE.DoubleSide});
-		var Wall_Plane = new THREE.Mesh(Wall_Plane_g, Wall_Plane_material);
+		var Wall_Plane_m = new THREE.MeshLambertMaterial({color: 0xffffff, side: THREE.DoubleSide, emissive:0xffffff});
+		var Wall_Plane = new THREE.Mesh(Wall_Plane_g, Wall_Plane_m);
 		Wall_Plane.position.set(0,0,0);
 
 		scene.add(Wall_Plane);
@@ -183,11 +183,8 @@
 
 
 		// OUR GLOBAL LIGHTS
-		var	light = new THREE.PointLight(0xffffff, 1.8, 80000); // цвет, интенсивность, расстояние 
+		var	light = new THREE.PointLight(0xffffff, 2, 80000); // цвет, интенсивность, расстояние 
 		light.position.set(0,0,0); // устанавливаем позицию по x, y, z
-		light.castShadow = true;
-		light.shadowMapWidth = 2048; // ставим качество тени 
-		light.shadowMapHeight = 2048;
 		scene.add(light);
 		// END OF GLOBAL LIGHTS
 
@@ -248,7 +245,7 @@
 
 
 // START THE PROGRAM
-	MathWorld();
+	World();
 
 
 

@@ -105,12 +105,10 @@
 			"resources/3D/math.dae",
 			function(collada)
 			{
-
 				pi = collada.scene.getChildByName("pi", true);
 				pi.position.set(100, 100, 100);
 				pi.material.emissive.setHex(0x003388);
 				scene.add(pi);
-
 
 				integral = collada.scene.getChildByName("integral", true);
 				integral.position.set(500, 100, 100);
@@ -122,38 +120,14 @@
 				radical.material.color.setHex(0x003388);
 				scene.add(radical);
 
-			}
-		);
-
-		var obj_loader = new THREE.OBJLoader();
-		obj_loader.load(			
-			"resources/3D/nabla.obj",
-			function(object)
-			{
-				var str;
-				for (var i in object)
-				{
-					str += i + "; \n";
-				}
-				window.alert(str);
-
-				nabla = object;
+				nabla = collada.scene.getChildByName("nabla", true);
 				nabla.position.set(100, 100, 400);
 				nabla.scale.set(10, 10, 10);
+				nabla.material.emissive.setHex(0x003388);
 				scene.add(nabla);
+
 			}
 		);
-/*		var objmtl_loader = new THREE.OBJMTLLoader();
-		objmtl_loader.load(			
-			"resources/3D/pi.obj", "resources/3D/pi.mtl",
-			function(object)
-			{
-				integral = object;
-				integral.scale.set(100,100,100);
-				scene.add(integral);
-			}
-		);
-*/
 				// add 3D text
 		var materialSide = new THREE.MeshLambertMaterial( { color: 0x003388 } );
 		var materialArray = [ materialSide];
@@ -195,12 +169,15 @@
 		
 
 //END OF KEYBOARD BINDINGS
-/*		
+		
 		setInterval(function(){
 			radical.rotation.x += 0.02;
 			radical.rotation.y += 0.02;
+
+			nabla.rotation.x += 0.02;
+			nabla.rotation.y += 0.02;
+
 		}, 100);		
-*/
 		camera.lookAt(Wall_Plane.position);
 		function animate()
 		{

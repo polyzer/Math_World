@@ -8,6 +8,7 @@ var MathWorld = new function()
 	var MathElement;
 	var mathSymbolsTable;
 	var greekLettersTable;
+	var math3DObjectsTable;
 	var Parser;
 
 	this.Screen_Parameters = function()

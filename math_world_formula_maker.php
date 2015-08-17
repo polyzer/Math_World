@@ -5,9 +5,9 @@
 	<meta charset="utf-8">
 </head>
 <body>
-<script src='../libs/threejs/build/three.js'></script>
-<script src='../libs/threejs/examples/js/loaders/OBJLoader.js'></script>
-<script src='../libs/threejs/examples/js/loaders/ColladaLoader.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r65/three.min.js'></script>
+<script src='../libs/threejs_59/examples/js/loaders/OBJLoader.js'></script>
+<script src='../libs/threejs_59/examples/js/loaders/ColladaLoader.js'></script>
 <script src='../libs/threejs/examples/js/controls/FirstPersonControls.js'></script>
 <script src='../libs/threejs/src/extras/THREEx/THREEx.FullScreen.js'></script>
 <script src='../libs/threejs/src/extras/THREEx/THREEx.KeyboardState.js'></script>
@@ -33,7 +33,6 @@
 	}
 */
 </script>
-
 
 <script>
 
@@ -101,48 +100,28 @@
 		scene.add(Wall_Plane);
 
 		var collada_loader = new THREE.ColladaLoader();
+		collada_loader.options.convertUpAxis = true;
 		collada_loader.load(
-			"resources/3D/Integral.dae",
+			"resources/3D/math.dae",
 			function(collada)
 			{
-				collada.scene.traverse(function(object)
-				{
-					if (object instanceof THREE.Mesh)
-					{
-						integral = object;
-						scene.add(integral);
-					}
-				});
-			}
-		);
-		collada_loader.load(			
-			"resources/3D/radical.dae",
-			function(collada)
-			{
-				collada.scene.traverse(function(object)
-				{
-					if (object instanceof THREE.Mesh)
-					{
-						radical = object;
-						radical.position.set(100, 100, 100);
-						scene.add(radical);
-					}
-				});
-			}
-		);
-		collada_loader.load(			
-			"resources/3D/pi.dae",
-			function(collada)
-			{
-				collada.scene.traverse(function(object)
-				{
-					if (object instanceof THREE.Mesh)
-					{
-						pi = object;
-						pi.position.set(500, 100, 100);
-						scene.add(pi);
-					}
-				});
+
+				pi = collada.scene.getChildByName("pi", true);
+				pi.position.set(100, 100, 100);
+				pi.material.emissive.setHex(0x003388);
+				scene.add(pi);
+
+
+				integral = collada.scene.getChildByName("integral", true);
+				integral.position.set(500, 100, 100);
+				pi.material.emissive.setHex(0x003388);
+				scene.add(integral);
+
+				radical = collada.scene.getChildByName("radical", true);
+				radical.position.set(-100, -100, -100);
+				radical.material.color.setHex(0x003388);
+				scene.add(radical);
+
 			}
 		);
 
@@ -151,14 +130,30 @@
 			"resources/3D/nabla.obj",
 			function(object)
 			{
+				var str;
+				for (var i in object)
+				{
+					str += i + "; \n";
+				}
+				window.alert(str);
+
 				nabla = object;
 				nabla.position.set(100, 100, 400);
-				nabla.scale.set(100, 100, 100);
+				nabla.scale.set(10, 10, 10);
 				scene.add(nabla);
 			}
 		);
-
-
+/*		var objmtl_loader = new THREE.OBJMTLLoader();
+		objmtl_loader.load(			
+			"resources/3D/pi.obj", "resources/3D/pi.mtl",
+			function(object)
+			{
+				integral = object;
+				integral.scale.set(100,100,100);
+				scene.add(integral);
+			}
+		);
+*/
 				// add 3D text
 		var materialSide = new THREE.MeshLambertMaterial( { color: 0x003388 } );
 		var materialArray = [ materialSide];
@@ -183,8 +178,8 @@
 
 
 		// OUR GLOBAL LIGHTS
-		var	light = new THREE.PointLight(0xffffff, 2, 80000); // цвет, интенсивность, расстояние 
-		light.position.set(0,0,0); // устанавливаем позицию по x, y, z
+		var	light = new THREE.PointLight(0xffffff, 100, 800000); // цвет, интенсивность, расстояние 
+		light.position.set(camera.position.x,camera.position.y,camera.position.z); // устанавливаем позицию по x, y, z
 		scene.add(light);
 		// END OF GLOBAL LIGHTS
 
@@ -200,17 +195,17 @@
 		
 
 //END OF KEYBOARD BINDINGS
-		
+/*		
 		setInterval(function(){
 			radical.rotation.x += 0.02;
 			radical.rotation.y += 0.02;
 		}, 100);		
-
+*/
 		camera.lookAt(Wall_Plane.position);
 		function animate()
 		{
 
-			raycaster.setFromCamera(mouse_vector, camera);
+/*			raycaster.setFromCamera(mouse_vector, camera);
 
 			var intersects = raycaster.intersectObjects(scene.children);
 
@@ -232,7 +227,7 @@
 					INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
 				INTERSECTED = null;
 			}
-
+*/
 			requestAnimationFrame(animate);
 				controls.update(1);
 			renderer.render(scene, camera);

@@ -42,7 +42,7 @@
 		var container, scene, camera, renderer, controls, stats;
 		var angle = 0.0;
 		var raycaster = new THREE.Raycaster();
-		var mouse_vector = new THREE.Vector2(), INTERSECTED, integral, radical, pi, nable;
+		var mouse_vector = new THREE.Vector2(), INTERSECTED, integral, radical, pi, nabla, sum;
 		var ScreenParameters = new MathWorld.Screen_Parameters();
 		var CameraSettings = new MathWorld.Camera_Settings();
 		var keyboard = new THREEx.KeyboardState();
@@ -119,6 +119,11 @@
 				radical.position.set(-100, -100, -100);
 				radical.material.color.setHex(0x003388);
 				scene.add(radical);
+
+				sum = collada.scene.getChildByName("sum", true);
+				sum.position.set(-100, -100, -100);
+				sum.material.color.setHex(0x003388);
+				scene.add(sum);
 
 				nabla = collada.scene.getChildByName("nabla", true);
 				nabla.position.set(100, 100, 400);

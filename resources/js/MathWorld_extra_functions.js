@@ -9,6 +9,7 @@ var MathWorld = new function()
 	var mathSymbolsTable;
 	var greekLettersTable;
 	var math3DObjectsTable;
+	var MathMLTagsTable;
 	var Parser;
 
 	this.Screen_Parameters = function()
@@ -110,6 +111,8 @@ var MathWorld = new function()
 		}
 	};
 
+
+
 	this.mathSymbolsTable = new Array();
 
 	this.mathSymbolsTable.push(new this.Symbol({"latex":"\\times", "html_name":"&times;", "html_code":"&#215;", "description":"умножение"}));
@@ -194,10 +197,13 @@ var MathWorld = new function()
 	this.greekLettersTable.push(new this.Symbol({"latex":"\\psi", "html_name":"&psi;", "html_code":"&#968;", "description":"пси"}));
 	this.greekLettersTable.push(new this.Symbol({"latex":"\\omega", "html_name":"&omega;", "html_code":"&#969;", "description":"омега"}));
 
+	this.math3DObjectsTable = new Array();
+
 
 	this.Parser = function() {
 
 	};
+
 
 
 };

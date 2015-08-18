@@ -5,16 +5,13 @@
 	<meta charset="utf-8">
 </head>
 <body>
-<script src='../libs/threejs/build/three.js'></script>
-<script src='../libs/threejs/examples/js/loaders/OBJLoader.js'></script>
-<script src='../libs/threejs/examples/js/loaders/ColladaLoader.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r65/three.min.js'></script>
+<script src='../libs/threejs_59/examples/js/loaders/OBJLoader.js'></script>
+<script src='../libs/threejs_59/examples/js/loaders/ColladaLoader.js'></script>
 <script src='../libs/threejs/examples/js/controls/FirstPersonControls.js'></script>
 <script src='../libs/threejs/src/extras/THREEx/THREEx.FullScreen.js'></script>
 <script src='../libs/threejs/src/extras/THREEx/THREEx.KeyboardState.js'></script>
 <script src='../libs/threejs/src/extras/THREEx/THREEx.WindowResize.js'></script>
-
-<script src='./resources/js/MathWorld_extra_functions.js'></script>
-
 <script src="../libs/threejs/examples/fonts/gentilis_bold.typeface.js"></script>
 <script src="../libs/threejs/examples/fonts/gentilis_regular.typeface.js"></script>
 <script src="../libs/threejs/examples/fonts/optimer_bold.typeface.js"></script>
@@ -25,6 +22,8 @@
 <script src="../libs/threejs/examples/fonts/droid/droid_sans_bold.typeface.js"></script>
 <script src="../libs/threejs/examples/fonts/droid/droid_serif_regular.typeface.js"></script>
 <script src="../libs/threejs/examples/fonts/droid/droid_serif_bold.typeface.js"></script>
+<script src='./resources/js/MathWorld_extra_functions.js'></script>
+
 <script>
 /*
 	function collisionDetection(element1, element1)
@@ -34,18 +33,17 @@
 */
 </script>
 
-
 <script>
 
-	function MathWorld()
+	function World()
 	{
 
 		var container, scene, camera, renderer, controls, stats;
 		var angle = 0.0;
 		var raycaster = new THREE.Raycaster();
-		var mouse_vector = new THREE.Vector2(), INTERSECTED, integral, radical, pi, nable;
-		var ScreenParameters = new Screen_Parameters();
-		var CameraSettings = new Camera_Settings();
+		var mouse_vector = new THREE.Vector2(), INTERSECTED, integral, radical, pi, nabla, sum;
+		var ScreenParameters = new MathWorld.Screen_Parameters();
+		var CameraSettings = new MathWorld.Camera_Settings();
 		var keyboard = new THREEx.KeyboardState();
 		var clock = new THREE.Clock();
 
@@ -78,7 +76,6 @@
 											 CameraSettings.Aspect_Ratio, 
 											 CameraSettings.Near, 
 											 CameraSettings.Far);
-
 		camera.position.set(-100,0, 500);
 		//END OF CAMERA DEFINITION
 		
@@ -94,71 +91,62 @@
 // OBJECTS DOWNLOAD AND DEFINITIONS
 
 		var Wall_Plane_g = new THREE.PlaneGeometry(10000, 300, 4000);
-		var Wall_Plane_m = new THREE.MeshLambertMaterial({color: 0xb55489, side: THREE.DoubleSide});
-		var Wall_Plane = new THREE.Mesh(Wall_Plane_g, Wall_Plane_material);
+		var Wall_Plane_m = new THREE.MeshLambertMaterial({color: 0xffffff, side: THREE.DoubleSide, emissive:0xffffff});
+		var Wall_Plane = new THREE.Mesh(Wall_Plane_g, Wall_Plane_m);
 		Wall_Plane.position.set(0,0,0);
 
 		scene.add(Wall_Plane);
+		var scene2 = new THREE.Scene();
+		scene2.position.set(1000, 1000, 1000);
+		scene.add(scene2);
+		scene2.updateMatrix();
 
 		var collada_loader = new THREE.ColladaLoader();
+		collada_loader.options.convertUpAxis = true;
+			var div = document.createElement("div");
+			div.style.zIndex = "1000";
+			div.style.position = "absolute";
+			div.style.left = "0px";
+			div.style.backgroundColor = "#FFFFFF";
+			document.body.appendChild(div);
+				for (i in scene2)
+				{
+					div.innerHTML += i + "; <br>";
+				}
+
 		collada_loader.load(
-			"resources/3D/Integral.dae",
+			"resources/3D/math.dae",
 			function(collada)
 			{
-				collada.scene.traverse(function(object)
-				{
-					if (object instanceof THREE.Mesh)
-					{
-						integral = object;
-						scene.add(integral);
-					}
-				});
-			}
-		);
-		collada_loader.load(			
-			"resources/3D/radical.dae",
-			function(collada)
-			{
-				collada.scene.traverse(function(object)
-				{
-					if (object instanceof THREE.Mesh)
-					{
-						radical = object;
-						radical.position.set(100, 100, 100);
-						scene.add(radical);
-					}
-				});
-			}
-		);
-		collada_loader.load(			
-			"resources/3D/pi.dae",
-			function(collada)
-			{
-				collada.scene.traverse(function(object)
-				{
-					if (object instanceof THREE.Mesh)
-					{
-						pi = object;
-						pi.position.set(500, 100, 100);
-						scene.add(pi);
-					}
-				});
-			}
-		);
 
-		var obj_loader = new THREE.OBJLoader();
-		obj_loader.load(			
-			"resources/3D/nabla.obj",
-			function(object)
-			{
-				nabla = object;
+				pi = collada.scene.getChildByName("pi", true);
+				pi.position.set(100, 100, 100);
+				pi.material.emissive.setHex(0x003388);
+				scene2.add(pi);
+
+				integral = collada.scene.getChildByName("integral", true);
+				integral.position.set(500, 100, 100);
+				pi.material.emissive.setHex(0x003388);
+				scene2.add(integral);
+
+				radical = collada.scene.getChildByName("radical", true);
+				radical.position.set(-100, -100, -100);
+				radical.material.color.setHex(0x003388);
+				scene2.add(radical);
+
+				sum = collada.scene.getChildByName("sum", true);
+				sum.position.set(-100, -100, -100);
+				sum.material.color.setHex(0x003388);
+				scene2.add(sum);
+
+				nabla = collada.scene.getChildByName("nabla", true);
 				nabla.position.set(100, 100, 400);
-				nabla.scale.set(100, 100, 100);
-				scene.add(nabla);
+				nabla.scale.set(10, 10, 10);
+				nabla.material.emissive.setHex(0x003388);
+				scene2.add(nabla);
+
 			}
 		);
-
-
 				// add 3D text
 		var materialSide = new THREE.MeshLambertMaterial( { color: 0x003388 } );
 		var materialArray = [ materialSide];
@@ -183,11 +171,8 @@
 
 
 		// OUR GLOBAL LIGHTS
-		var	light = new THREE.PointLight(0xffffff, 1.8, 80000); // цвет, интенсивность, расстояние 
-		light.position.set(0,0,0); // устанавливаем позицию по x, y, z
-		light.castShadow = true;
-		light.shadowMapWidth = 2048; // ставим качество тени 
-		light.shadowMapHeight = 2048;
+		var	light = new THREE.PointLight(0xffffff, 100, 800000); // цвет, интенсивность, расстояние 
+		light.position.set(camera.position.x,camera.position.y,camera.position.z); // устанавливаем позицию по x, y, z
 		scene.add(light);
 		// END OF GLOBAL LIGHTS
 
@@ -196,6 +181,10 @@
 		controls.movementSpeed = 2;
 		controls.lookSpeed = 0.001;
 		//FIRST_PERSON_CAMERA_CONTROLS_END
+
+
+
+
 
 //END OF OBJECTS DOWNLOAD AND DEFINITIONS
 
@@ -207,13 +196,16 @@
 		setInterval(function(){
 			radical.rotation.x += 0.02;
 			radical.rotation.y += 0.02;
-		}, 100);		
 
+			nabla.rotation.x += 0.02;
+			nabla.rotation.y += 0.02;
+
+		}, 100);		
 		camera.lookAt(Wall_Plane.position);
 		function animate()
 		{
 
-			raycaster.setFromCamera(mouse_vector, camera);
+/*			raycaster.setFromCamera(mouse_vector, camera);
 
 			var intersects = raycaster.intersectObjects(scene.children);
 
@@ -235,7 +227,7 @@
 					INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
 				INTERSECTED = null;
 			}
-
+*/
 			requestAnimationFrame(animate);
 				controls.update(1);
 			renderer.render(scene, camera);
@@ -248,7 +240,7 @@
 
 
 // START THE PROGRAM
-	MathWorld();
+	World();
 
 
 

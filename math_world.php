@@ -104,9 +104,7 @@
 						   MathWorld.MainCamera.position.z); // устанавливаем позицию по x, y, z
 		MathWorld.MainScene.add(light);
 
-		for (var i in MathWorld.math3DObjectsTable["nabla"]){
-			window.alert(i);
-		}
+		window.alert(MathWorld.math3DObjectsTable.nabla.name);
 		// END OF GLOBAL LIGHTS
 
 		//FIRST_PERSON_CAMERA_CONTROLS

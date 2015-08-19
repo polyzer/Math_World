@@ -16,7 +16,7 @@ var MathWorld = new function()
 	var mathSymbolsTable;
 	var greekLettersTable;
 	var math3DObjectsTable;
-	var math3DObjectsArray;
+	var math3DObjectsNames;
 	var MathMLTagsTable;
 		// Loaders & Functions
 	var ColladaLoader;
@@ -36,12 +36,13 @@ var MathWorld = new function()
 	
 	this.ColladaLoader = new THREE.ColladaLoader();
 
-function load3DObjectByName(obj, loader){
+function load3DObjectByName(name, loader){
     return new Promise(function(resolve) {
         loader.load(
             "resources/3D/math.dae",
             function(collada) {
-                obj.Obj = collada.scene.getChildByName(obj.Name, true);
+            	var obj;
+                obj = collada.scene.getChildByName(name, true);
                 resolve(obj);
             }
         );
@@ -243,23 +244,23 @@ function load3DObjectByName(obj, loader){
 	this.greekLettersTable.push(new this._Symbol({"latex":"\\omega", "html_name":"&omega;", "html_code":"&#969;", "description":"омега"}));
 
 	this.math3DObjectsTable = new Object();
-	this.math3DObjectsArray = new Array();
+	this.math3DObjectsNames = new Array();
 
-	this.math3DObjectsArray.push(new this._Math_3D_Object("nabla"));
-	this.math3DObjectsArray.push(new this._Math_3D_Object("Pi"));
-	this.math3DObjectsArray.push(new this._Math_3D_Object("integral"));
-	this.math3DObjectsArray.push(new this._Math_3D_Object("radical"));
-	this.math3DObjectsArray.push(new this._Math_3D_Object("sum"));
-	this.math3DObjectsArray.push(new this._Math_3D_Object("infinity"));
+	this.math3DObjectsNames.push("nabla");
+	this.math3DObjectsNames.push("Pi");
+	this.math3DObjectsNames.push("integral");
+	this.math3DObjectsNames.push("radical");
+	this.math3DObjectsNames.push("sum");
+	this.math3DObjectsNames.push("infinity");
 
-	for (var i = 0 ; i < this.math3DObjectsArray.length; i++)
+	for (var i = 0 ; i < this.math3DObjectsNames.length; i++)
 	{
-		var prom = load3DObjectByName(this.math3DObjectsArray[i], 
+		var prom = load3DObjectByName(this.math3DObjectsNames[i], 
 						   			  this.ColladaLoader
 									 );
 		prom.then(function(obj){
-			MathWorld.math3DObjectsTable[obj.Name] = obj.Obj;
-			if (obj.Name == "integral")
+			MathWorld.math3DObjectsTable[obj.name] = obj;
+			if (obj.name == "integral")
 				World();
 		});
 		

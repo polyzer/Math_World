@@ -16,6 +16,7 @@ var MathWorld = new function()
 	var mathSymbolsTable;
 	var greekLettersTable;
 	var math3DObjectsTable;
+	var math3DObjectsArray;
 	var MathMLTagsTable;
 		// Loaders & Functions
 	var ColladaLoader;
@@ -44,8 +45,8 @@ function load3DObjectByName(obj, loader){
                 resolve(obj);
             }
         );
-
     });
+
 }
 
 	this._Screen_Parameters = function()
@@ -241,23 +242,27 @@ function load3DObjectByName(obj, loader){
 	this.greekLettersTable.push(new this._Symbol({"latex":"\\psi", "html_name":"&psi;", "html_code":"&#968;", "description":"пси"}));
 	this.greekLettersTable.push(new this._Symbol({"latex":"\\omega", "html_name":"&omega;", "html_code":"&#969;", "description":"омега"}));
 
-	this.math3DObjectsTable = new Array();
+	this.math3DObjectsTable = new Object();
+	this.math3DObjectsArray = new Array();
 
-	this.math3DObjectsTable.push(new this._Math_3D_Object("nabla"));
-	this.math3DObjectsTable.push(new this._Math_3D_Object("Pi"));
-	this.math3DObjectsTable.push(new this._Math_3D_Object("integral"));
-	this.math3DObjectsTable.push(new this._Math_3D_Object("radical"));
-	this.math3DObjectsTable.push(new this._Math_3D_Object("sum"));
-	this.math3DObjectsTable.push(new this._Math_3D_Object("infinity"));
+	this.math3DObjectsArray.push(new this._Math_3D_Object("nabla"));
+	this.math3DObjectsArray.push(new this._Math_3D_Object("Pi"));
+	this.math3DObjectsArray.push(new this._Math_3D_Object("integral"));
+	this.math3DObjectsArray.push(new this._Math_3D_Object("radical"));
+	this.math3DObjectsArray.push(new this._Math_3D_Object("sum"));
+	this.math3DObjectsArray.push(new this._Math_3D_Object("infinity"));
 
-	for (var i = 0 ; i < this.math3DObjectsTable.length; i++)
+	for (var i = 0 ; i < this.math3DObjectsArray.length; i++)
 	{
-		var prom = load3DObjectByName(this.math3DObjectsTable[i], 
+		var prom = load3DObjectByName(this.math3DObjectsArray[i], 
 						   			  this.ColladaLoader
 									 );
-		prom.then(function (obj){	
-			window.alert(obj.Obj["name"]);
+		prom.then(function(obj){
+			MathWorld.math3DObjectsTable[obj.Name] = obj.Obj;
+			if (obj.Name == "integral")
+				World();
 		});
+		
 	}
 
 	this.Parser = function() {

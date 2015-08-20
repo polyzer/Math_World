@@ -37,7 +37,7 @@
 <script>
 
 
-	function World()
+MathWorld.World = function()
 	{
 
 		var raycaster = new THREE.Raycaster();
@@ -120,7 +120,19 @@
 		{
 			div.innerHTML += i+"; <br>";
 		}
-		mymeshes[0].material.emissive.setHex(0x444444);
+		MathWorld.objMaterialProperty({
+			"obj": Wall_Plane,
+			"property" : "emissive",
+			"value" : "red"
+		});
+		window.alert(
+		MathWorld.objMaterialProperty({
+			"obj": Wall_Plane,
+			"property" : "emissive",
+//			"value" : "rgb(0,0,0)"
+		}));
+
+//		Wall_Plane.material.color.setHex(0x444444);
 		scene2.add(mymeshes[0]);
 		// END OF GLOBAL LIGHTS
 

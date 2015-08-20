@@ -23,6 +23,7 @@ var MathWorld = new function()
 		// Funcs
 	var load3DObjectByName;
 	var load3DColladaScenes;
+	var objMaterialProperty;
 	var Starter;
 
 	//MainObjects
@@ -35,7 +36,7 @@ var MathWorld = new function()
 	var MainCameraSettings;
 	var MainScreenParameters;
 
-	
+	var World;
 
 
 
@@ -44,6 +45,20 @@ var MathWorld = new function()
 
 
 // FUNCS DEFINITIONS
+	
+	this.objMaterialProperty = function(parameters_json)
+	{
+		if (parameters_json)
+		{
+			if (parameters_json.value){
+				parameters_json.obj.material[parameters_json.property].setStyle(parameters_json.value);
+			} else
+			{
+				return parameters_json.obj.material[parameters_json.property].getStyle();
+			}
+		}
+
+	}
 
 	function load3DObjectByName(name, loader)
 	{
@@ -324,7 +339,7 @@ var MathWorld = new function()
 
 
 	this.Starter = function()
-	{
+	{	// Сперва загружаем 3Д-модели мат объектов
 		Promise.all(this.math3DObjectsNames.map(
 			function(name) 
 			{
@@ -335,8 +350,9 @@ var MathWorld = new function()
 				return prom;
 			},this // контекст
 											   )
+// Здесь уже можно работать дальше
 		).then(function () {
-			World();
+			MathWorld.World();
 		});			
 	}
 

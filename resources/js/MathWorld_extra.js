@@ -51,10 +51,10 @@ var MathWorld = new function()
 		if (parameters_json)
 		{
 			if (parameters_json.value){
-				parameters_json.obj.material[parameters_json.property].setStyle(parameters_json.value);
+				parameters_json.obj.material[parameters_json.property].set(parameters_json.value);
 			} else
 			{
-				return parameters_json.obj.material[parameters_json.property].getStyle();
+				return parameters_json.obj.material[parameters_json.property].getHexString();
 			}
 		}
 

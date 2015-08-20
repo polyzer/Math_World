@@ -1,5 +1,3 @@
-
-
 var MathWorld = new function() 
 {
 	// classes
@@ -25,8 +23,7 @@ var MathWorld = new function()
 		// Funcs
 	var load3DObjectByName;
 	var load3DColladaScenes;
-
-
+	var Starter;
 
 	//MainObjects
 	var MainScene;
@@ -36,48 +33,9 @@ var MathWorld = new function()
 	var MainControls;
 	var MainStats;
 	var MainCameraSettings;
-	var MainScreenParameters
+	var MainScreenParameters;
 
 	
-
-	this.MainScene = new THREE.Scene();
-
-		//CAMERA
-	this.MainCameraSettings = new this._Camera_Settings();
-	this.MainScreenParameters = new this._Screen_Parameters();
-
-
-	this.MainCamera = new THREE.PerspectiveCamera(
-										 this.MainCameraSettings.View_Angle, 
-										 this.MainCameraSettings.Aspect_Ratio, 
-										 this.MainCameraSettings.Near, 
-										 this.MainCameraSettings.Far
-										 );
-
-	this.MainCamera.position.set(-100,0, 500);
-		//END OF CAMERA DEFINITION
-		
-		//RENDERER
-	this.MainRenderer = new THREE.WebGLRenderer();
-	this.MainRenderer.setSize(this.MainScreenParameters.Width, this.MainScreenParameters.Height);
-	this.MainContainer.appendChild(this.MainRenderer.domElement);
-		//END OF RENDERER DEFINITION
-
-	this.MainControls = new THREE.FirstPersonControls(this.MainCamera);
-	this.MainControls.movementSpeed = 2;
-	this.MainControls.lookSpeed = 0.001;
-
-
-	THREEx.WindowResize(this.MainRenderer, this.MainCamera);
-	THREEx.FullScreen.bindKey({ charCode : 'm'.charCodeAt(0) });
-
-	this.MainContainer = document.createElement("div");
-	this.MainContainer.style.position = "absolute";
-	this.MainContainer.style.top = "-10px";
-	this.MainContainer.style.left = "-10px";
-	document.body.appendChild(this.MainContainer);
-
-
 
 
 
@@ -87,12 +45,12 @@ var MathWorld = new function()
 
 // FUNCS DEFINITIONS
 
-	function load3DObjectByName(name)
+	function load3DObjectByName(name, loader)
 	{
 	    return new Promise(
 		    function(resolve) 
 		    {
-		        MathWorld.Colladaloader.load(
+		        loader.load(
 		            "resources/3D/math.dae",
 		            function(collada) 
 		            {
@@ -321,35 +279,67 @@ var MathWorld = new function()
 	this.math3DObjectsNames.push("sum");
 	this.math3DObjectsNames.push("infinity");
 
-	function loadAll3DObjects()
+
+
+	this.MainScene = new THREE.Scene();
+
+		//CAMERA
+	this.MainCameraSettings = new this._Camera_Settings();
+	this.MainScreenParameters = new this._Screen_Parameters();
+
+
+	this.MainCamera = new THREE.PerspectiveCamera(
+										 this.MainCameraSettings.View_Angle, 
+										 this.MainCameraSettings.Aspect_Ratio, 
+										 this.MainCameraSettings.Near, 
+										 this.MainCameraSettings.Far
+										 );
+
+	this.MainCamera.position.set(-100,0, 500);
+		//END OF CAMERA DEFINITION
+
+
+	this.MainContainer = document.createElement("div");
+	this.MainContainer.style.position = "absolute";
+	this.MainContainer.style.top = "-10px";
+	this.MainContainer.style.left = "-10px";
+	document.body.appendChild(this.MainContainer);
+
+
+		
+		//RENDERER
+	this.MainRenderer = new THREE.WebGLRenderer();
+	this.MainRenderer.setSize(this.MainScreenParameters.Width, this.MainScreenParameters.Height);
+	this.MainContainer.appendChild(this.MainRenderer.domElement);
+		//END OF RENDERER DEFINITION
+
+	this.MainControls = new THREE.FirstPersonControls(this.MainCamera);
+	this.MainControls.movementSpeed = 2;
+	this.MainControls.lookSpeed = 0.001;
+
+
+	THREEx.WindowResize(this.MainRenderer, this.MainCamera);
+	THREEx.FullScreen.bindKey({ charCode : 'm'.charCodeAt(0) });
+
+
+
+	this.Starter = function()
 	{
 		Promise.all(this.math3DObjectsNames.map(
 			function(name) 
 			{
-				var prom = load3DObjectByName(name);
+				var prom = load3DObjectByName(name, this.ColladaLoader);
 				prom.then(function (obj) {
-					math3DObjectsTable[obj.name] = obj;
+					MathWorld.math3DObjectsTable[obj.name] = obj;
 				});
 				return prom;
-			},this
+			},this // контекст
 											   )
 		).then(function () {
-			window.alert("HELLO WORLD");
+			World();
 		});			
-		
-
 	}
 
-
-	function Starter()
-	{
-
-
-	}
-
-
-
-
-
+	this.Starter();
 
 };

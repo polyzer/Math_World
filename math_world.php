@@ -6,24 +6,24 @@
 </head>
 <body>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r65/three.min.js'></script>
-<script src='../libs/threejs_59/examples/js/loaders/OBJLoader.js'></script>
+<script src='../libs/threejs_71/examples/js/loaders/OBJLoader.js'></script>
 <script src='../libs/threejs_59/examples/js/loaders/ColladaLoader.js'></script>
-<script src='../libs/threejs/examples/js/controls/FirstPersonControls.js'></script>
-<script src='../libs/threejs/src/extras/THREEx/THREEx.FullScreen.js'></script>
-<script src='../libs/threejs/src/extras/THREEx/THREEx.KeyboardState.js'></script>
-<script src='../libs/threejs/src/extras/THREEx/THREEx.WindowResize.js'></script>
-<script src="../libs/threejs/examples/fonts/gentilis_bold.typeface.js"></script>
-<script src="../libs/threejs/examples/fonts/gentilis_regular.typeface.js"></script>
-<script src="../libs/threejs/examples/fonts/optimer_bold.typeface.js"></script>
-<script src="../libs/threejs/examples/fonts/optimer_regular.typeface.js"></script>
-<script src="../libs/threejs/examples/fonts/helvetiker_bold.typeface.js"></script>
-<script src="../libs/threejs/examples/fonts/helvetiker_regular.typeface.js"></script>
-<script src="../libs/threejs/examples/fonts/droid/droid_sans_regular.typeface.js"></script>
-<script src="../libs/threejs/examples/fonts/droid/droid_sans_bold.typeface.js"></script>
-<script src="../libs/threejs/examples/fonts/droid/droid_serif_regular.typeface.js"></script>
-<script src="../libs/threejs/examples/fonts/droid/droid_serif_bold.typeface.js"></script>
+<script src='../libs/threejs_71/examples/js/controls/FirstPersonControls.js'></script>
+<script src='../libs/threejs_71/src/extras/THREEx/THREEx.FullScreen.js'></script>
+<script src='../libs/threejs_71/src/extras/THREEx/THREEx.KeyboardState.js'></script>
+<script src='../libs/threejs_71/src/extras/THREEx/THREEx.WindowResize.js'></script>
+<script src="../libs/threejs_71/examples/fonts/gentilis_bold.typeface.js"></script>
+<script src="../libs/threejs_71/examples/fonts/gentilis_regular.typeface.js"></script>
+<script src="../libs/threejs_71/examples/fonts/optimer_bold.typeface.js"></script>
+<script src="../libs/threejs_71/examples/fonts/optimer_regular.typeface.js"></script>
+<script src="../libs/threejs_71/examples/fonts/helvetiker_bold.typeface.js"></script>
+<script src="../libs/threejs_71/examples/fonts/helvetiker_regular.typeface.js"></script>
+<script src="../libs/threejs_71/examples/fonts/droid/droid_sans_regular.typeface.js"></script>
+<script src="../libs/threejs_71/examples/fonts/droid/droid_sans_bold.typeface.js"></script>
+<script src="../libs/threejs_71/examples/fonts/droid/droid_serif_regular.typeface.js"></script>
+<script src="../libs/threejs_71/examples/fonts/droid/droid_serif_bold.typeface.js"></script>
 
-<script src='./resources/js/MathWorld_extra_functions.js'></script>
+<script src='./resources/js/MathWorld_extra.js'></script>
 
 <script>
 /*
@@ -35,6 +35,7 @@
 </script>
 
 <script>
+
 
 	function World()
 	{
@@ -104,7 +105,23 @@
 						   MathWorld.MainCamera.position.z); // устанавливаем позицию по x, y, z
 		MathWorld.MainScene.add(light);
 
-		window.alert(MathWorld.math3DObjectsTable.nabla.name);
+		var mymeshes = new Array();
+		mymeshes.push(MathWorld.math3DObjectsTable.nabla.clone());
+		mymeshes[0].name = "mymesh_nabla";
+		var str;
+		var div = document.createElement("div");
+		div.style.position = "absolute";
+		div.style.left = "0px";
+		div.style.top = "0px";
+		div.style.zIndex = 1000;
+		div.style.backgroundColor = "#FFFFFF";
+		document.body.appendChild(div);
+		for(var i in mymeshes[0])
+		{
+			div.innerHTML += i+"; <br>";
+		}
+		mymeshes[0].material.emissive.setHex(0x444444);
+		scene2.add(mymeshes[0]);
 		// END OF GLOBAL LIGHTS
 
 		//FIRST_PERSON_CAMERA_CONTROLS

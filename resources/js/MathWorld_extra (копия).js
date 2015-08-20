@@ -1,5 +1,4 @@
 
-
 var MathWorld = new function() 
 {
 	// classes

@@ -6,25 +6,25 @@
 </head>
 <body>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r65/three.min.js'></script>
-<script src='../libs/threejs_59/examples/js/loaders/OBJLoader.js'></script>
-<script src='../libs/threejs_59/examples/js/loaders/ColladaLoader.js'></script>
-<script src='../libs/threejs/examples/js/controls/FirstPersonControls.js'></script>
-<script src='../libs/threejs/src/extras/THREEx/THREEx.FullScreen.js'></script>
-<script src='../libs/threejs/src/extras/THREEx/THREEx.KeyboardState.js'></script>
-<script src='../libs/threejs/src/extras/THREEx/THREEx.WindowResize.js'></script>
+<script src='../libs/threejs_71/examples/js/loaders/OBJLoader.js'></script>
+<script src='../libs/threejs_71/examples/js/loaders/ColladaLoader.js'></script>
+<script src='../libs/threejs_71/examples/js/controls/FirstPersonControls.js'></script>
+<script src='../libs/threejs_71/src/extras/THREEx/THREEx.FullScreen.js'></script>
+<script src='../libs/threejs_71/src/extras/THREEx/THREEx.KeyboardState.js'></script>
+<script src='../libs/threejs_71/src/extras/THREEx/THREEx.WindowResize.js'></script>
+<script src="../libs/threejs_71/examples/fonts/gentilis_bold.typeface.js"></script>
+<script src="../libs/threejs_71/examples/fonts/gentilis_regular.typeface.js"></script>
+<script src="../libs/threejs_71/examples/fonts/optimer_bold.typeface.js"></script>
+<script src="../libs/threejs_71/examples/fonts/optimer_regular.typeface.js"></script>
+<script src="../libs/threejs_71/examples/fonts/helvetiker_bold.typeface.js"></script>
+<script src="../libs/threejs_71/examples/fonts/helvetiker_regular.typeface.js"></script>
+<script src="../libs/threejs_71/examples/fonts/droid/droid_sans_regular.typeface.js"></script>
+<script src="../libs/threejs_71/examples/fonts/droid/droid_sans_bold.typeface.js"></script>
+<script src="../libs/threejs_71/examples/fonts/droid/droid_serif_regular.typeface.js"></script>
+<script src="../libs/threejs_71/examples/fonts/droid/droid_serif_bold.typeface.js"></script>
 
 <script src='./resources/js/MathWorld_extra_functions.js'></script>
 
-<script src="../libs/threejs/examples/fonts/gentilis_bold.typeface.js"></script>
-<script src="../libs/threejs/examples/fonts/gentilis_regular.typeface.js"></script>
-<script src="../libs/threejs/examples/fonts/optimer_bold.typeface.js"></script>
-<script src="../libs/threejs/examples/fonts/optimer_regular.typeface.js"></script>
-<script src="../libs/threejs/examples/fonts/helvetiker_bold.typeface.js"></script>
-<script src="../libs/threejs/examples/fonts/helvetiker_regular.typeface.js"></script>
-<script src="../libs/threejs/examples/fonts/droid/droid_sans_regular.typeface.js"></script>
-<script src="../libs/threejs/examples/fonts/droid/droid_sans_bold.typeface.js"></script>
-<script src="../libs/threejs/examples/fonts/droid/droid_serif_regular.typeface.js"></script>
-<script src="../libs/threejs/examples/fonts/droid/droid_serif_bold.typeface.js"></script>
 <script>
 /*
 	function collisionDetection(element1, element1)
@@ -39,12 +39,8 @@
 	function World()
 	{
 
-		var container, scene, camera, renderer, controls, stats;
-		var angle = 0.0;
 		var raycaster = new THREE.Raycaster();
 		var mouse_vector = new THREE.Vector2(), INTERSECTED, integral, radical, pi, nabla, sum;
-		var ScreenParameters = new MathWorld.Screen_Parameters();
-		var CameraSettings = new MathWorld.Camera_Settings();
 		var keyboard = new THREEx.KeyboardState();
 		var clock = new THREE.Clock();
 
@@ -62,33 +58,6 @@
 			//threejs elements
 
 
-		container = document.createElement("div");
-		container.style.position = "absolute";
-		container.style.top = "-10px";
-		container.style.left = "-10px";
-		document.body.appendChild(container);
-
-		//SCENE
-		scene = new THREE.Scene();
-		//END OF SCENE
-
-		//CAMERA
-		camera = new THREE.PerspectiveCamera(CameraSettings.View_Angle, 
-											 CameraSettings.Aspect_Ratio, 
-											 CameraSettings.Near, 
-											 CameraSettings.Far);
-
-		camera.position.set(-100,0, 500);
-		//END OF CAMERA DEFINITION
-		
-		//RENDERER
-		renderer = new THREE.WebGLRenderer();
-		renderer.setSize(ScreenParameters.Width, ScreenParameters.Height);
-		container.appendChild(renderer.domElement);
-		//END OF RENDERER DEFINITION
-
-		THREEx.WindowResize(renderer, camera);
-		THREEx.FullScreen.bindKey({ charCode : 'm'.charCodeAt(0) });
 
 // OBJECTS DOWNLOAD AND DEFINITIONS
 
@@ -96,43 +65,15 @@
 		var Wall_Plane_m = new THREE.MeshLambertMaterial({color: 0xffffff, side: THREE.DoubleSide, emissive:0xffffff});
 		var Wall_Plane = new THREE.Mesh(Wall_Plane_g, Wall_Plane_m);
 		Wall_Plane.position.set(0,0,0);
+		MathWorld.MainScene.add(Wall_Plane);
 
-		scene.add(Wall_Plane);
+		var scene2 = new THREE.Scene();
+		scene2.position.set(1000, 1000, 1000);
+		MathWorld.MainScene.add(scene2);
+		scene2.updateMatrix();
 
-		var collada_loader = new THREE.ColladaLoader();
-		collada_loader.options.convertUpAxis = true;
-		collada_loader.load(
-			"resources/3D/math.dae",
-			function(collada)
-			{
-				pi = collada.scene.getChildByName("pi", true);
-				pi.position.set(100, 100, 100);
-				pi.material.emissive.setHex(0x003388);
-				scene.add(pi);
 
-				integral = collada.scene.getChildByName("integral", true);
-				integral.position.set(500, 100, 100);
-				pi.material.emissive.setHex(0x003388);
-				scene.add(integral);
 
-				radical = collada.scene.getChildByName("radical", true);
-				radical.position.set(-100, -100, -100);
-				radical.material.color.setHex(0x003388);
-				scene.add(radical);
-
-				sum = collada.scene.getChildByName("sum", true);
-				sum.position.set(-100, -100, -100);
-				sum.material.color.setHex(0x003388);
-				scene.add(sum);
-
-				nabla = collada.scene.getChildByName("nabla", true);
-				nabla.position.set(100, 100, 400);
-				nabla.scale.set(10, 10, 10);
-				nabla.material.emissive.setHex(0x003388);
-				scene.add(nabla);
-
-			}
-		);
 				// add 3D text
 		var materialSide = new THREE.MeshLambertMaterial( { color: 0x003388 } );
 		var materialArray = [ materialSide];
@@ -152,21 +93,30 @@
 		
 		textMesh.position.set( -0.5 * textWidth, 50, 100 );
 		textMesh.rotation.x = -Math.PI / 4;
-		scene.add(textMesh);
+		MathWorld.MainScene.add(textMesh);
 
 
 
 		// OUR GLOBAL LIGHTS
 		var	light = new THREE.PointLight(0xffffff, 100, 800000); // цвет, интенсивность, расстояние 
-		light.position.set(camera.position.x,camera.position.y,camera.position.z); // устанавливаем позицию по x, y, z
-		scene.add(light);
+		light.position.set(MathWorld.MainCamera.position.x, 
+						   MathWorld.MainCamera.position.y, 
+						   MathWorld.MainCamera.position.z); // устанавливаем позицию по x, y, z
+		MathWorld.MainScene.add(light);
+
+		var mymeshes = new Array();
+		mymeshes.push(MathWorld.math3DObjectsTable.nabla.clone());
+		mymeshes[0].name = "mymesh_nabla";
+		mymeshes[0].material.emissive.setHex(0x444444);
+		scene2.add(mymeshes[0]);
 		// END OF GLOBAL LIGHTS
 
 		//FIRST_PERSON_CAMERA_CONTROLS
-		controls = new THREE.FirstPersonControls(camera);
-		controls.movementSpeed = 2;
-		controls.lookSpeed = 0.001;
 		//FIRST_PERSON_CAMERA_CONTROLS_END
+
+
+
+
 
 //END OF OBJECTS DOWNLOAD AND DEFINITIONS
 
@@ -174,22 +124,14 @@
 		
 
 //END OF KEYBOARD BINDINGS
-		
-		setInterval(function(){
-			radical.rotation.x += 0.02;
-			radical.rotation.y += 0.02;
 
-			nabla.rotation.x += 0.02;
-			nabla.rotation.y += 0.02;
-
-		}, 100);		
-		camera.lookAt(Wall_Plane.position);
+		MathWorld.MainCamera.lookAt(Wall_Plane.position);
 		function animate()
 		{
+/*
+			raycaster.setFromCamera(mouse_vector, MathWorld.MainCamera);
 
-/*			raycaster.setFromCamera(mouse_vector, camera);
-
-			var intersects = raycaster.intersectObjects(scene.children);
+			var intersects = raycaster.intersectObjects(MathWorld.MainScene.children);
 
 			if (intersects.length > 0)
 			{
@@ -211,8 +153,8 @@
 			}
 */
 			requestAnimationFrame(animate);
-				controls.update(1);
-			renderer.render(scene, camera);
+				MathWorld.MainControls.update(1);
+			MathWorld.MainRenderer.render(MathWorld.MainScene, MathWorld.MainCamera);
 			
 		}
 		animate();	
@@ -222,7 +164,7 @@
 
 
 // START THE PROGRAM
-	World();
+
 
 
 

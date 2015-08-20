@@ -60,7 +60,12 @@ MathWorld.World = function()
 						   MathWorld.MainCamera.position.z); // устанавливаем позицию по x, y, z
 		MathWorld.MainScene.add(light);
 
-
+		var str;
+		for (i in scene2)
+		{
+			str += i + "; \n";
+		}
+		window.alert(str);
 
 
 
@@ -80,20 +85,17 @@ MathWorld.World = function()
 
 
 			mymeshes.push(mesh);
-			MathWorld.MainScene.add(mesh);
+			scene2.add(mesh);
 //			scene2.add(mesh);
 
 		}
 
 
 		setInterval(function() {
-			for (var i = 0; i < 100; i++)
-			{
-				randindex = Math.round(Math.random() * 10000);
-				mymeshes[randindex].rotation.x += 0.1;
-				mymeshes[randindex].rotation.y += 0.1;
-			}
-		},50);
+			scene2.rotation.x += 0.01;
+			scene2.rotation.y += 0.01;
+			scene2.updateMatrix();
+		},100);
 
 
 

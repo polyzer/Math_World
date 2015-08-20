@@ -6,7 +6,6 @@
 </head>
 <body>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r65/three.min.js'></script>
-<script src='../libs/threejs_71/examples/js/loaders/OBJLoader.js'></script>
 <script src='../libs/threejs_59/examples/js/loaders/ColladaLoader.js'></script>
 <script src='../libs/threejs_71/examples/js/controls/FirstPersonControls.js'></script>
 <script src='../libs/threejs_71/src/extras/THREEx/THREEx.FullScreen.js'></script>

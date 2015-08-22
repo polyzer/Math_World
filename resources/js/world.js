@@ -6,9 +6,6 @@ MathWorld.World = function()
 		var keyboard = new THREEx.KeyboardState();
 		var clock = new THREE.Clock();
 
-		var planes = [];
-		var balls = [];
-		var cubes = [];
 
 		function onMouseMove(event)
 		{
@@ -36,7 +33,6 @@ MathWorld.World = function()
 
 				// add 3D text
 		var materialSide = new THREE.MeshLambertMaterial( { color: 0x003388 } );
-		var materialArray = [ materialSide];
 		var textGeom = new THREE.TextGeometry( "+ - * / = () {}", 
 		{
 			size: 30, height: 4, curveSegments: 3,
@@ -60,18 +56,14 @@ MathWorld.World = function()
 						   MathWorld.MainCamera.position.z); // устанавливаем позицию по x, y, z
 		MathWorld.MainScene.add(light);
 
-		var str;
-		for (i in scene2)
-		{
-			str += i + "; \n";
-		}
-		window.alert(str);
+		MathWorld.math3DObjectsTable.radical.geometry.computeBoundingBox();
 
+		window.alert(MathWorld.math3DObjectsTable.radical.geometry.boundingBox.min.z);
 
 
 		var mymeshes = new Array();
 
-		for (var i = 0; i < 10000; i++) 
+		for (var i = 0; i < 15000; i++) 
 		{
 			var mesh = MathWorld.math3DObjectsTable.integral.clone();
 

@@ -12,7 +12,10 @@ var MathWorld = new function()
 	//Global MathWorld Objects
 		//Tables
 	var mathSymbolsTable;
+	var englishLettersTable;
+	var englishLettrsNames;
 	var greekLettersTable;
+	var greekLettersNames;
 	var math3DObjectsTable;
 	var math3DObjectsNames;
 	var MathMLTagsTable;
@@ -24,6 +27,7 @@ var MathWorld = new function()
 	var load3DObjectByName;
 	var load3DColladaScenes;
 	var objMaterialProperty;
+	var getSizeOfObject();
 	var Starter;
 
 	//MainObjects
@@ -60,6 +64,19 @@ var MathWorld = new function()
 
 	}
 
+	this.getSizeOfObject = function(parameters_json)
+	{
+		if (parameters_json)
+		{
+			parameters_json.geometry.computeBoundingBox();
+			var ret = new Object();
+			ret.x = parameters_json.geometry.boundingBox.max.x - parameters_json.geometry.boundingBox.min.x;
+			ret.y = parameters_json.geometry.boundingBox.max.y - parameters_json.geometry.boundingBox.min.y;
+			ret.z = parameters_json.geometry.boundingBox.max.z - parameters_json.geometry.boundingBox.min.z;
+			return ret;
+		}
+	}
+
 	function load3DObjectByName(name, loader)
 	{
 	    return new Promise(
@@ -77,6 +94,8 @@ var MathWorld = new function()
 		    }
 		);
 	}
+
+
 
 //	function load3DColladaScenes(name, loader)
 
@@ -131,20 +150,14 @@ var MathWorld = new function()
 	};
 
 	this._Math_Element = function()
-	{
-		var Type; // operation | identificator | number | container
-		var SymbolHTMLName; // HTML значение содержимого
+	{ // следующие элементы представляются не в кодах, а как есть
+		var Childs; //массив с вложенными конструкциями: если есть, определен, имеет потомков, если нет = null
+		var Type; // operation = o | identificator = i | number = n | container = c
+		var HTMLSymbol; // HTML значение содержимого
 		var MathObject3D; // 3D объект, который будет в сцене
 		var Name;
 		var MathMLTag;
 	};
-
-	this._Math_3D_Object = function(name)
-	{
-		var Obj;
-		var Name;
-		this.Name = name;
-	}
 
 	this._MathML_Tag = function() 
 	{
@@ -191,7 +204,11 @@ var MathWorld = new function()
 	};
 
 	this.Parser = function() {
-
+			function parseMathMLto3D(MathMLCode) {
+				// получаем ноду со входом в код = тэг <math>
+				var mathMLHeadNode = MathMLCode.getElementsByTagName("math")[0];
+				window.alert(mathMLHeadNode);
+			}
 	};
 
 
@@ -287,7 +304,7 @@ var MathWorld = new function()
 	this.math3DObjectsTable = new Object();
 	this.math3DObjectsNames = new Array();
 
-	this.math3DObjectsNames.push("nabla");
+	this.math3DObjectsNames.push("");
 	this.math3DObjectsNames.push("Pi");
 	this.math3DObjectsNames.push("integral");
 	this.math3DObjectsNames.push("radical");
@@ -339,7 +356,8 @@ var MathWorld = new function()
 
 
 	this.Starter = function()
-	{	// Сперва загружаем 3Д-модели мат объектов
+	{
+		// Сперва загружаем 3Д-модели мат объектов
 		Promise.all(this.math3DObjectsNames.map(
 			function(name) 
 			{
@@ -354,8 +372,9 @@ var MathWorld = new function()
 		).then(function () {
 			MathWorld.World();
 		});			
+	
 	}
 
-	this.Starter();
+	this.Starter();// запускаем загрузку всех Ajax ресурсов
 
 };

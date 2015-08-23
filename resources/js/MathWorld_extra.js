@@ -203,7 +203,7 @@ var MathWorld = new function()
 			if (typeof this.parameters.description !== "undefined")
 				this.description = this.parameters.description;
 
-			if (typeof this.parameters.keySym !== "undefined")
+			if (typeof this.parameters.key_sym !== "undefined")
 				this.keySym = this.parameters.keySym;
 
 		}
@@ -227,24 +227,25 @@ var MathWorld = new function()
 
 	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\times", "html_name":"&times;", "html_code":"&#215;", "description":"умножение"}));
 	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\div","html_name":"&divide;", "html_code":"&#247;", "description":"деление"}));
-	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\lt","html_name":"&lt;", "html_code":"&#60;", "description":"меньше"}));
-	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\gt", "html_name":"&gt;", "html_code":"&#62;", "description":"больше"}));
+	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\lt", "key_sym" : "<","html_name":"&lt;", "html_code":"&#60;", "description":"меньше"}));
+	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\gt", "key_sym" : ">", "html_name":"&gt;", "html_code":"&#62;", "description":"больше"}));
 	this.mathSymbolsTable.push(new this._Symbol({"html_name":"&fnof;", "html_code":"&#402;", "description":"функция"}));
-	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\plus", "html_name":"&plus;", "html_code":"&#43;", "description":"плюс"}));
-	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\minus", "html_name":"&minus;", "html_code":"&#45;", "description":"минус"}));
-	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\minus", "html_name":"&minus;", "html_code":"&#8722;", "description":"минус"}));
-	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\ast", "html_name":"&lowast;", "html_code":"&#8727;", "description":"сопряжение"}));
+	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\plus", "key_sym": "+", "html_name":"&plus;", "html_code":"&#43;", "description":"плюс"}));
+	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\minus", "key_sym" : "-", "html_name":"&minus;", "html_code":"&#45;", "description":"минус"}));
+	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\minus", "key_sym" : "-", "html_name":"&minus;", "html_code":"&#8722;", "description":"минус"}));
+	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\ast", "key_sym" : "*", "html_name":"&lowast;", "html_code":"&#8727;", "description":"умножение|сопряжение"}));
 	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\sqrt{},\\sqrt[]{}", "html_name":"&radic;", "html_code":"&#8730;", "description":"корень"}));
 	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\propto", "html_name":"&prop;", "html_code":"&#8733;", "description":"пропорциональность"}));
 	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\infty", "html_name":"&infin;", "html_code":"&#8734;", "description":"бесконечность"}));
 	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\angle", "html_name":"&ang;", "html_code":"&#8736;", "description":"угол"}));
-	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\wedge", "html_name":"&and;", "html_code":"&#8743;", "description":"и"}));
-	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\vee", "html_name":"&or;", "html_code":"&#8744;", "description":"или"}));
+	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\wedge","key_sym": "&", "html_name":"&and;", "html_code":"&#8743;", "description":"и"}));
+	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\vee", "key_sym": "|", "html_name":"&or;", "html_code":"&#8744;", "description":"или"}));
 	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\cap", "html_name":"&cap;", "html_code":"&#8745;", "description":"пересечение"}));
 	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\cup", "html_name":"&cup;", "html_code":"&#8746;", "description":"объединение"}));
 	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\int", "html_name":"&int;", "html_code":"&#8747;", "description":"интеграл"}));
 	this.mathSymbolsTable.push(new this._Symbol({"html_name":"&there4;", "html_code":"&#8756;", "description":"поэтому"}));
-	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\sim", "html_name":"&sim;", "html_code":"&#8764;", "description":"подобно"}));
+	this.mathSymbolsTable.push(new this._Symbol({"key_sym" : "=", "description":"равно"}));
+	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\sim", "key_sym" : "~", "html_name":"&sim;", "html_code":"&#8764;", "description":"подобно"}));
 	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\cong", "html_name":"&cong;", "html_code":"&#8773;", "description":"сравнимо"}));
 	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\approx", "html_name":"&asymp;", "html_code":"&#8776;", "description":"приблизительно равно"}));
 	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\neq", "html_name":"&ne;", "html_code":"&#8800;", "description":"не равно"}));
@@ -259,7 +260,7 @@ var MathWorld = new function()
 	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\oplus", "html_name":"&oplus;", "html_code":"&#8853;", "description":"прямая сумма"}));
 	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\otimes", "html_name":"&otimes;", "html_code":"&#8855;", "description":"тензерное произведение"}));
 	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\perp", "html_name":"&perp;", "html_code":"&#8869;", "description":"перпендикуляр"}));
-	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\cdot", "html_name":"&sdot;", "html_code":"&#8836;", "description":"оператор точка"}));
+	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\cdot","key_sym": "." "html_name":"&sdot;", "html_code":"&#8836;", "description":"оператор точка"}));
 	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\pm", "html_name":"&plusmn;", "html_code":"&#177;", "description":"плюс|минус"}));
 	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\forall", "html_name":"&forall;", "html_code":"&#8704;", "description":"для каждого"}));
 	this.mathSymbolsTable.push(new this._Symbol({"latex":"\\partial", "html_name":"&part;", "html_code":"&#8706;", "description":"часть"}));
@@ -306,6 +307,8 @@ var MathWorld = new function()
 	this.greekLettersTable.push(new this._Symbol({"latex":"\\chi", "html_name":"&chi;", "html_code":"&#967;", "description":"чи"}));
 	this.greekLettersTable.push(new this._Symbol({"latex":"\\psi", "html_name":"&psi;", "html_code":"&#968;", "description":"пси"}));
 	this.greekLettersTable.push(new this._Symbol({"latex":"\\omega", "html_name":"&omega;", "html_code":"&#969;", "description":"омега"}));
+	this.greekLettersTable.push(new this._Symbol({"latex":"\\Sigma", "html_name":"&Sigma;", "html_code":"&#969;", "description":"Сумма|Сигма"}));
+
 
 	this.math3DObjectsTable = new Object();
 	this.math3DObjectsNames = new Array();

@@ -168,6 +168,7 @@ var MathWorld = new function()
 	this._Symbol = function (args_json){
 		var htmlCode;
 		var htmlName;
+		var keySym;
 		var javascriptUnicode;
 		var description;
 		var latex;
@@ -177,6 +178,7 @@ var MathWorld = new function()
 		this.javascriptUnicode = null;
 		this.description = null;
 		this.latex = null;
+		this.keySym = null;
 
 		var parameters = new Object();
 
@@ -200,6 +202,10 @@ var MathWorld = new function()
 
 			if (typeof this.parameters.description !== "undefined")
 				this.description = this.parameters.description;
+
+			if (typeof this.parameters.keySym !== "undefined")
+				this.keySym = this.parameters.keySym;
+
 		}
 	};
 

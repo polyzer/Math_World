@@ -91,6 +91,21 @@ var MathWorld = new function()
 		);
 	}
 
+	function load3DColladaScene(loader, file_str)
+	{
+	    return new Promise(
+		    function(resolve) 
+		    {
+		        loader.load(
+		            file_str,
+		            function(collada) 
+		            {
+		                resolve(collada.scene);//// ДОРАБОТАТЬ ВСЕ ЭТО!!!
+		            }
+		        );
+		    }
+		);
+	}
 
 
 //	function load3DColladaScenes(name, loader)
@@ -225,7 +240,7 @@ var MathWorld = new function()
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\lt", "key_sym" : "<","html_name":"&lt;", "html_code":"&#60;", "description":"меньше"}));
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\gt", "key_sym" : ">", "html_name":"&gt;", "html_code":"&#62;", "description":"больше"}));
 	this.allSymbolsTable.push(new this._Symbol({"html_name":"&fnof;", "html_code":"&#402;", "description":"функция"}));
-/*	this.allSymbolsTable.push(new this._Symbol({"latex":"\\plus", "key_sym": "+", "html_name":"&plus;", "html_code":"&#43;", "description":"плюс"}));
+	this.allSymbolsTable.push(new this._Symbol({"latex":"\\plus", "key_sym": "+", "html_name":"&plus;", "html_code":"&#43;", "description":"плюс"}));
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\minus", "key_sym" : "-", "html_name":"&minus;", "html_code":"&#45;", "description":"минус"}));
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\minus", "key_sym" : "-", "html_name":"&minus;", "html_code":"&#8722;", "description":"минус"}));
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\ast", "key_sym" : "*", "html_name":"&lowast;", "html_code":"&#8727;", "description":"умножение|сопряжение"}));
@@ -306,7 +321,7 @@ var MathWorld = new function()
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\psi", "html_name":"&psi;", "html_code":"&#968;", "description":"пси"}));
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\omega", "html_name":"&omega;", "html_code":"&#969;", "description":"омега"}));
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\Sigma", "html_name":"&Sigma;", "html_code":"&#969;", "description":"Сумма|Сигма"}));
-
+/*
 	this.allSymbolsTable.push(new this._Symbol({"html_name":"&a;", "key_sym": "a"}));
 	this.allSymbolsTable.push(new this._Symbol({"html_name":"&b;", "key_sym": "b"}));
 	this.allSymbolsTable.push(new this._Symbol({"html_name":"&c;", "key_sym": "c"}));
@@ -421,30 +436,25 @@ var MathWorld = new function()
 
 	this.Starter = function()
 	{
-		// Сперва загружаем 3Д-модели мат объектов
-		Promise.all(this.allSymbolsTable.map(
-			function(symbol) 
+		var prom = load3DColladaScene(this.ColladaLoader, "./resources/3D/all.dae");
+		prom.then(function(col_scene) {
+		for (var i = 0; i < this.allSymbolsTable.length; i++){
+			var obj = col_scene.getChildByName("_"+this.allSymbolsTable[i].htmlName.slice(1, -1)+"_", true); //присваиваем объект 
+			
+			if (typeof obj === "undefined")
 			{
-				var prom = load3DObjectBySymbol(symbol, this.ColladaLoader, "./resources/3D/all.dae");
-				prom.then(function (ret) { // получаем комплексный возврат
+				console.log("we have no object with name " + this.allSymbolsTable[i].htmlName);
+			}
+			else
+			{ // если obj != undefined
+				var elem = new MathWorld._Math_Element(); // создаем элемент
+				elem.ViewObject3D = obj; //присваиваем объект 
+				elem.HTMLSymbol = this.allSymbolsTable[i];
+				MathWorld.all3DObjectsTable.push(elem); //добавляем в список
+			}
 
-					if (typeof ret.obj === "undefined")
-					{
-						console.log("we have no object with name " + ret.symbol.htmlName);
-					}
-
-
-					if (typeof ret.obj !== "undefined")
-					{ // если obj != undefined
-						var elem = new MathWorld._Math_Element(); // создаем элемент
-						elem.ViewObject3D = ret.obj; //присваиваем объект 
-						elem.HTMLSymbol = ret.symbol;
-						MathWorld.all3DObjectsTable.push(elem); //добавляем в список
-					}
-				})
-				return prom;
-			},this // контекст
-											   )
+		}
+	}.bind(this)
 // Здесь уже можно работать дальше
 		).then(function () {
 			window.alert("HELLO");

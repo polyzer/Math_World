@@ -225,7 +225,7 @@ var MathWorld = new function()
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\lt", "key_sym" : "<","html_name":"&lt;", "html_code":"&#60;", "description":"меньше"}));
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\gt", "key_sym" : ">", "html_name":"&gt;", "html_code":"&#62;", "description":"больше"}));
 	this.allSymbolsTable.push(new this._Symbol({"html_name":"&fnof;", "html_code":"&#402;", "description":"функция"}));
-	this.allSymbolsTable.push(new this._Symbol({"latex":"\\plus", "key_sym": "+", "html_name":"&plus;", "html_code":"&#43;", "description":"плюс"}));
+/*	this.allSymbolsTable.push(new this._Symbol({"latex":"\\plus", "key_sym": "+", "html_name":"&plus;", "html_code":"&#43;", "description":"плюс"}));
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\minus", "key_sym" : "-", "html_name":"&minus;", "html_code":"&#45;", "description":"минус"}));
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\minus", "key_sym" : "-", "html_name":"&minus;", "html_code":"&#8722;", "description":"минус"}));
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\ast", "key_sym" : "*", "html_name":"&lowast;", "html_code":"&#8727;", "description":"умножение|сопряжение"}));
@@ -242,8 +242,8 @@ var MathWorld = new function()
 	this.allSymbolsTable.push(new this._Symbol({"key_sym" : "=", "html_name" : "&equal;", "description":"равно"}));
 	this.allSymbolsTable.push(new this._Symbol({"key_sym" : "(", "html_name" : "&lobrkt;", "description":"скобка"}));
 	this.allSymbolsTable.push(new this._Symbol({"key_sym" : ")", "html_name" : "&robrkt;", "description":"скобка"}));
-	this.allSymbolsTable.push(new this._Symbol({"key_sym" : "{", "description":"фигурная скобка"}));
-	this.allSymbolsTable.push(new this._Symbol({"key_sym" : "}", "description":"фигурная скобка"}));
+	this.allSymbolsTable.push(new this._Symbol({"key_sym" : "{", "html_name" : "{", "description":"фигурная скобка"}));
+	this.allSymbolsTable.push(new this._Symbol({"key_sym" : "}", "html_name" : "}", "description":"фигурная скобка"}));
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\sim", "key_sym" : "~", "html_name":"&sim;", "html_code":"&#8764;", "description":"подобно"}));
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\cong", "html_name":"&cong;", "html_code":"&#8773;", "description":"сравнимо"}));
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\approx", "html_name":"&asymp;", "html_code":"&#8776;", "description":"приблизительно равно"}));
@@ -371,9 +371,9 @@ var MathWorld = new function()
 	this.allSymbolsTable.push(new this._Symbol({"html_name":"&eight;", "key_sym": "8"}));
 	this.allSymbolsTable.push(new this._Symbol({"html_name":"&nine;", "key_sym": "9"}));
 	this.allSymbolsTable.push(new this._Symbol({"html_name":"&null;", "key_sym": "0"}));
+*/
 
-
-	this.math3DObjectsTable = new Object();
+	this.all3DObjectsTable = new Array();
 
 
 
@@ -430,7 +430,7 @@ var MathWorld = new function()
 
 					if (typeof ret.obj === "undefined")
 					{
-						window.alert("we have no object with name " + ret.symbol.htmlName);
+						console.log("we have no object with name " + ret.symbol.htmlName);
 					}
 
 
@@ -438,7 +438,8 @@ var MathWorld = new function()
 					{ // если obj != undefined
 						var elem = new MathWorld._Math_Element(); // создаем элемент
 						elem.ViewObject3D = ret.obj; //присваиваем объект 
-						MathWorld.all3DObjectsTable[ret.obj.name.slice(1, -1)] = elem; //добавляем в список
+						elem.HTMLSymbol = ret.symbol;
+						MathWorld.all3DObjectsTable.push(elem); //добавляем в список
 					}
 				})
 				return prom;
@@ -446,6 +447,7 @@ var MathWorld = new function()
 											   )
 // Здесь уже можно работать дальше
 		).then(function () {
+			window.alert("HELLO");
 			MathWorld.World();
 		});			
 	

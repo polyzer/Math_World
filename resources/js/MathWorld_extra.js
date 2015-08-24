@@ -12,8 +12,7 @@ var MathWorld = new function()
 	//Global MathWorld Objects
 		//Tables
 	var allSymbolsTable;
-	var math3DObjectsTable;
-	var math3DObjectsNames;
+	var all3DObjectsTable;
 	var MathMLTagsTable;
 	var mathFormulaScenes;
 	var mathFormulaNames;
@@ -23,7 +22,7 @@ var MathWorld = new function()
 	var load3DObjectBySymbol;
 	var load3DColladaScenes;
 	var objMaterialProperty;
-	var getSizeOfObject();
+	var getSizeOfObject;
 	var Starter;
 
 	//MainObjects
@@ -82,13 +81,10 @@ var MathWorld = new function()
 		            file_str,
 		            function(collada) 
 		            {
-		            	var ret;
-		            	ret.obj = collada.scene.getChildByName(symbol.keySym, true);
-		            	if (ret.obj == "undefined")
-			                ret.obj = collada.scene.getChildByName(symbol.htmlName, true);
-			            if (ret.obj == "undefined")
-			            	console.log("Symbol with name " + symbol.htmlName + " is undefined!");
-			            ret.symbol = symbol;
+		            	var ret = new Object();
+		            	ret.obj = collada.scene.getChildByName(symbol.htmlName, true);
+		                window.alert(ret.obj.name);
+		                ret.symbol = symbol;
 		                resolve(ret);//// ДОРАБОТАТЬ ВСЕ ЭТО!!!
 		            }
 		        );
@@ -190,7 +186,6 @@ var MathWorld = new function()
 
 			if (typeof this.parameters.latex !== "undefined")
 				this.latex = this.parameters.latex;
-
 			
 			if (typeof this.parameters.html_code !== "undefined")
 				this.htmlCode = this.parameters.html_code;
@@ -205,7 +200,7 @@ var MathWorld = new function()
 				this.description = this.parameters.description;
 
 			if (typeof this.parameters.key_sym !== "undefined")
-				this.keySym = this.parameters.keySym;
+				this.keySym = this.parameters.key_sym;
 
 		}
 	};
@@ -248,7 +243,7 @@ var MathWorld = new function()
 	this.allSymbolsTable.push(new this._Symbol({"key_sym" : "=", "description":"равно"}));
 	this.allSymbolsTable.push(new this._Symbol({"key_sym" : "(", "description":"скобка"}));
 	this.allSymbolsTable.push(new this._Symbol({"key_sym" : ")", "description":"скобка"}));
-	this.allSymbolsTable.push(new this._Symbol({"key_sym" : "{", "description":"фигурная скобка"));
+	this.allSymbolsTable.push(new this._Symbol({"key_sym" : "{", "description":"фигурная скобка"}));
 	this.allSymbolsTable.push(new this._Symbol({"key_sym" : "}", "description":"фигурная скобка"}));
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\sim", "key_sym" : "~", "html_name":"&sim;", "html_code":"&#8764;", "description":"подобно"}));
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\cong", "html_name":"&cong;", "html_code":"&#8773;", "description":"сравнимо"}));
@@ -265,7 +260,7 @@ var MathWorld = new function()
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\oplus", "html_name":"&oplus;", "html_code":"&#8853;", "description":"прямая сумма"}));
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\otimes", "html_name":"&otimes;", "html_code":"&#8855;", "description":"тензерное произведение"}));
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\perp", "html_name":"&perp;", "html_code":"&#8869;", "description":"перпендикуляр"}));
-	this.allSymbolsTable.push(new this._Symbol({"latex":"\\cdot","key_sym": "." "html_name":"&sdot;", "html_code":"&#8836;", "description":"оператор точка"}));
+	this.allSymbolsTable.push(new this._Symbol({"latex":"\\cdot","key_sym": ".", "html_name":"&sdot;", "html_code":"&#8836;", "description":"оператор точка"}));
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\pm", "html_name":"&plusmn;", "html_code":"&#177;", "description":"плюс|минус"}));
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\forall", "html_name":"&forall;", "html_code":"&#8704;", "description":"для каждого"}));
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\partial", "html_name":"&part;", "html_code":"&#8706;", "description":"часть"}));
@@ -312,6 +307,34 @@ var MathWorld = new function()
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\psi", "html_name":"&psi;", "html_code":"&#968;", "description":"пси"}));
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\omega", "html_name":"&omega;", "html_code":"&#969;", "description":"омега"}));
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\Sigma", "html_name":"&Sigma;", "html_code":"&#969;", "description":"Сумма|Сигма"}));
+
+	this.allSymbolsTable.push(new this._Symbol({"html_name":"&a;", "key_sym": "a"}));
+	this.allSymbolsTable.push(new this._Symbol({"html_name":"&b;", "key_sym": "b"}));
+	this.allSymbolsTable.push(new this._Symbol({"html_name":"&c;", "key_sym": "c"}));
+	this.allSymbolsTable.push(new this._Symbol({"html_name":"&d;", "key_sym": "d"}));
+	this.allSymbolsTable.push(new this._Symbol({"html_name":"&e;", "key_sym": "e"}));
+	this.allSymbolsTable.push(new this._Symbol({"html_name":"&f;", "key_sym": "f"}));
+	this.allSymbolsTable.push(new this._Symbol({"html_name":"&g;", "key_sym": "g"}));
+	this.allSymbolsTable.push(new this._Symbol({"html_name":"&h;", "key_sym": "h"}));
+	this.allSymbolsTable.push(new this._Symbol({"html_name":"&i;", "key_sym": "i"}));
+	this.allSymbolsTable.push(new this._Symbol({"html_name":"&j;", "key_sym": "j"}));
+	this.allSymbolsTable.push(new this._Symbol({"html_name":"&k;", "key_sym": "k"}));
+	this.allSymbolsTable.push(new this._Symbol({"html_name":"&l;", "key_sym": "l"}));
+	this.allSymbolsTable.push(new this._Symbol({"html_name":"&m;", "key_sym": "m"}));
+	this.allSymbolsTable.push(new this._Symbol({"html_name":"&n;", "key_sym": "n"}));
+	this.allSymbolsTable.push(new this._Symbol({"html_name":"&o;", "key_sym": "o"}));
+	this.allSymbolsTable.push(new this._Symbol({"html_name":"&p;", "key_sym": "p"}));
+	this.allSymbolsTable.push(new this._Symbol({"html_name":"&q;", "key_sym": "q"}));
+	this.allSymbolsTable.push(new this._Symbol({"html_name":"&r;", "key_sym": "r"}));
+	this.allSymbolsTable.push(new this._Symbol({"html_name":"&s;", "key_sym": "s"}));
+	this.allSymbolsTable.push(new this._Symbol({"html_name":"&t;", "key_sym": "t"}));
+	this.allSymbolsTable.push(new this._Symbol({"html_name":"&u;", "key_sym": "u"}));
+	this.allSymbolsTable.push(new this._Symbol({"html_name":"&v;", "key_sym": "v"}));
+	this.allSymbolsTable.push(new this._Symbol({"html_name":"&w;", "key_sym": "w"}));
+	this.allSymbolsTable.push(new this._Symbol({"html_name":"&x;", "key_sym": "x"}));
+	this.allSymbolsTable.push(new this._Symbol({"html_name":"&y;", "key_sym": "y"}));
+	this.allSymbolsTable.push(new this._Symbol({"html_name":"&z;", "key_sym": "z"}));
+
 
 
 	this.math3DObjectsTable = new Object();
@@ -363,18 +386,25 @@ var MathWorld = new function()
 	this.Starter = function()
 	{
 		// Сперва загружаем 3Д-модели мат объектов
-		Promise.all(this.math3DObjectsNames.map(
-			function(name) 
+		Promise.all(this.allSymbolsTable.map(
+			function(symbol) 
 			{
-				var prom = load3DObjectBySymbol(name, this.ColladaLoader, "resources/3D/all.dae");
+				var prom = load3DObjectBySymbol(symbol, this.ColladaLoader, "./resources/3D/all.dae");
 				prom.then(function (ret) { // получаем комплексный возврат
-					if (ret.obj != "undefined"){ // если obj != undefined
+						var str;
+						for (i in ret.obj)
+						{
+							str += i + "; \n";
+						}
+						window.alert(str);
+
+					if (typeof ret !== "undefined")
+					{ // если obj != undefined
 						var elem = new MathWorld._Math_Element(); // создаем элемент
-						elem.HTMLSymbol = ret.symbol; // символ
 						elem.ViewObject3D = ret.obj; //присваиваем объект 
-						MathWorld.math3DObjectsTable[ret.obj.name] = elem; //добавляем в список
+						MathWorld.all3DObjectsTable[ret.obj.name] = elem; //добавляем в список
 					}
-				});
+				})
 				return prom;
 			},this // контекст
 											   )

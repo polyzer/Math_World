@@ -2,7 +2,7 @@ MathWorld.World = function()
 	{
 
 		var raycaster = new THREE.Raycaster();
-		var mouse_vector = new THREE.Vector2(), INTERSECTED, integral, radical, pi, nabla, sum;
+		var mouse_vector = new THREE.Vector2(), INTERSECTED;
 		var keyboard = new THREEx.KeyboardState();
 		var clock = new THREE.Clock();
 
@@ -56,16 +56,12 @@ MathWorld.World = function()
 						   MathWorld.MainCamera.position.z); // устанавливаем позицию по x, y, z
 		MathWorld.MainScene.add(light);
 
-		MathWorld.math3DObjectsTable.radical.geometry.computeBoundingBox();
-
-		window.alert(MathWorld.math3DObjectsTable.radical.geometry.boundingBox.min.z);
-
-
 		var mymeshes = new Array();
 
 		for (var i = 0; i < 15000; i++) 
 		{
-			var mesh = MathWorld.math3DObjectsTable.integral.clone();
+			var mesh = MathWorld.all3DObjectsTable[Math.round(Math.random() * 
+												   (MathWorld.all3DObjectsTable.length - 1))].Mesh;
 
 			mesh.position.x = Math.round(Math.random() * (1000 + 1000)) - 1000;
 			mesh.position.y = Math.round(Math.random() * (1000 + 1000)) - 1000;
@@ -75,6 +71,7 @@ MathWorld.World = function()
 			mesh.rotation.y = Math.random();
 			mesh.rotation.z = Math.random();
 
+			mesh.scale.set(100, 100, 1000);
 
 			mymeshes.push(mesh);
 			scene2.add(mesh);

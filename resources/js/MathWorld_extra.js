@@ -165,7 +165,7 @@ var MathWorld = new function()
 		var Childs; //массив с вложенными конструкциями: если есть, определен, имеет потомков, если нет = null
 		var Type; // operation = o | identificator = i | number = n | container = c
 		var HTMLSymbol; // HTML значение содержимого
-		var ViewObject3D; // 3D объект, который будет в сцене
+		var Mesh; // 3D объект, который будет в сцене
 		var Name;
 		var MathMLTag;
 	};
@@ -321,7 +321,7 @@ var MathWorld = new function()
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\psi", "html_name":"&psi;", "html_code":"&#968;", "description":"пси"}));
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\omega", "html_name":"&omega;", "html_code":"&#969;", "description":"омега"}));
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\Sigma", "html_name":"&Sigma;", "html_code":"&#969;", "description":"Сумма|Сигма"}));
-/*
+
 	this.allSymbolsTable.push(new this._Symbol({"html_name":"&a;", "key_sym": "a"}));
 	this.allSymbolsTable.push(new this._Symbol({"html_name":"&b;", "key_sym": "b"}));
 	this.allSymbolsTable.push(new this._Symbol({"html_name":"&c;", "key_sym": "c"}));
@@ -386,7 +386,7 @@ var MathWorld = new function()
 	this.allSymbolsTable.push(new this._Symbol({"html_name":"&eight;", "key_sym": "8"}));
 	this.allSymbolsTable.push(new this._Symbol({"html_name":"&nine;", "key_sym": "9"}));
 	this.allSymbolsTable.push(new this._Symbol({"html_name":"&null;", "key_sym": "0"}));
-*/
+
 
 	this.all3DObjectsTable = new Array();
 
@@ -448,16 +448,16 @@ var MathWorld = new function()
 			else
 			{ // если obj != undefined
 				var elem = new MathWorld._Math_Element(); // создаем элемент
-				elem.ViewObject3D = obj; //присваиваем объект 
+				elem.Mesh = obj; //присваиваем объект 
 				elem.HTMLSymbol = this.allSymbolsTable[i];
-				MathWorld.all3DObjectsTable.push(elem); //добавляем в список
+				this.all3DObjectsTable.push(elem); //добавляем в список
 			}
 
 		}
 	}.bind(this)
 // Здесь уже можно работать дальше
 		).then(function () {
-			window.alert("HELLO");
+			window.alert("Starting the world!");
 			MathWorld.World();
 		});			
 	

@@ -58,10 +58,10 @@ MathWorld.World = function()
 
 		var mymeshes = new Array();
 
-		for (var i = 0; i < 15000; i++) 
+		for (var i = 0; i < 150; i++) 
 		{
 			var mesh = MathWorld.all3DObjectsTable[Math.round(Math.random() * 
-												   (MathWorld.all3DObjectsTable.length - 1))].Mesh;
+												   (MathWorld.all3DObjectsTable.length - 1))].Mesh.clone();
 
 			mesh.position.x = Math.round(Math.random() * (1000 + 1000)) - 1000;
 			mesh.position.y = Math.round(Math.random() * (1000 + 1000)) - 1000;
@@ -71,7 +71,13 @@ MathWorld.World = function()
 			mesh.rotation.y = Math.random();
 			mesh.rotation.z = Math.random();
 
-			mesh.scale.set(100, 100, 1000);
+			mesh.scale.set(100, 100, 100);
+
+			MathWorld.objMaterialProperty({
+				"value": 0x003388,
+				"property": "color",
+				"obj": mesh
+			});
 
 			mymeshes.push(mesh);
 			scene2.add(mesh);
@@ -81,10 +87,10 @@ MathWorld.World = function()
 
 
 		setInterval(function() {
-			scene2.rotation.x += 0.01;
-			scene2.rotation.y += 0.01;
+			scene2.rotation.x += 0.001;
+			scene2.rotation.y += 0.001;
 			scene2.updateMatrix();
-		},100);
+		},20);
 
 
 

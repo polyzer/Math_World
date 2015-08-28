@@ -9,6 +9,7 @@ var MathWorld = new function()
 	var _Math_3D_Object;
 	var _MathML_Tag;
 	var _Parser;
+	var _Math_Lesson;
 	//Global MathWorld Objects
 		//Tables
 	var allSymbolsTable;
@@ -16,6 +17,8 @@ var MathWorld = new function()
 	var MathMLTagsTable;
 	var mathFormulaScenes;
 	var mathFormulaNames;
+	var mathLessons;
+	var mathSections;
 		// Loaders & Functions
 	var ColladaLoader;
 		// Funcs
@@ -34,6 +37,7 @@ var MathWorld = new function()
 	var MainStats;
 	var MainCameraSettings;
 	var MainScreenParameters;
+
 
 	var World;
 
@@ -172,14 +176,17 @@ var MathWorld = new function()
 
 	this._MathML_Tag = function() 
 	{
-		var Name;
+		var Name; //tagName
 		var Type; //container | opration | identificator | number
+		var OpenCloseSymbols; // true  | false
+
 	}
 
 	this._Symbol = function (args_json){
 		var htmlCode;
 		var htmlName;
 		var keySym;
+		var loadName;
 		var javascriptUnicode;
 		var description;
 		var latex;
@@ -190,6 +197,7 @@ var MathWorld = new function()
 		this.description = null;
 		this.latex = null;
 		this.keySym = null;
+		this.loadName = null;
 
 		var parameters = new Object();
 
@@ -216,6 +224,9 @@ var MathWorld = new function()
 			if (typeof this.parameters.key_sym !== "undefined")
 				this.keySym = this.parameters.key_sym;
 
+			if (typeof this.parameters.load_name !== "undefined")
+				this.loadName = this.parameters.load_name;
+
 		}
 	};
 
@@ -227,7 +238,13 @@ var MathWorld = new function()
 			}
 	};
 
-
+	this._Math_Lesson = function() 
+	{
+		var Scene; // сцена, в которой все будет отображаться
+		var Name; // имя урока
+		var Meshes; // объекты
+		var Func; //функция, которая будет выполняться в уроке
+	}
 
 
 // MATHWORLD OBJECTS initialisations
@@ -322,70 +339,141 @@ var MathWorld = new function()
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\omega", "html_name":"&omega;", "html_code":"&#969;", "description":"омега"}));
 	this.allSymbolsTable.push(new this._Symbol({"latex":"\\Sigma", "html_name":"&Sigma;", "html_code":"&#969;", "description":"Сумма|Сигма"}));
 
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&a;", "key_sym": "a"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&b;", "key_sym": "b"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&c;", "key_sym": "c"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&d;", "key_sym": "d"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&e;", "key_sym": "e"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&f;", "key_sym": "f"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&g;", "key_sym": "g"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&h;", "key_sym": "h"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&i;", "key_sym": "i"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&j;", "key_sym": "j"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&k;", "key_sym": "k"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&l;", "key_sym": "l"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&m;", "key_sym": "m"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&n;", "key_sym": "n"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&o;", "key_sym": "o"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&p;", "key_sym": "p"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&q;", "key_sym": "q"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&r;", "key_sym": "r"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&s;", "key_sym": "s"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&t;", "key_sym": "t"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&u;", "key_sym": "u"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&v;", "key_sym": "v"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&w;", "key_sym": "w"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&x;", "key_sym": "x"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&y;", "key_sym": "y"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&z;", "key_sym": "z"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_small_1_", "key_sym": "a"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_small_2_", "key_sym": "b"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_small_3_", "key_sym": "c"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_small_4_", "key_sym": "d"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_small_5_", "key_sym": "e"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_small_6_", "key_sym": "f"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_small_7_", "key_sym": "g"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_small_8_", "key_sym": "h"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_small_9_", "key_sym": "i"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_small_10_", "key_sym": "j"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_small_11_", "key_sym": "k"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_small_12_", "key_sym": "l"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_small_13_", "key_sym": "m"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_small_14_", "key_sym": "n"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_small_15_", "key_sym": "o"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_small_16_", "key_sym": "p"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_small_17_", "key_sym": "q"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_small_18_", "key_sym": "r"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_small_19_", "key_sym": "s"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_small_20_", "key_sym": "t"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_small_21_", "key_sym": "u"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_small_22_", "key_sym": "v"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_small_23_", "key_sym": "w"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_small_24_", "key_sym": "x"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_small_25_", "key_sym": "y"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_small_26_", "key_sym": "z"}));
 
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&A;", "key_sym": "A"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&B;", "key_sym": "B"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&C;", "key_sym": "C"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&D;", "key_sym": "D"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&E;", "key_sym": "E"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&F;", "key_sym": "F"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&G;", "key_sym": "G"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&H;", "key_sym": "H"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&I;", "key_sym": "I"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&J;", "key_sym": "J"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&K;", "key_sym": "K"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&L;", "key_sym": "L"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&M;", "key_sym": "M"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&N;", "key_sym": "N"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&O;", "key_sym": "O"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&P;", "key_sym": "P"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&Q;", "key_sym": "Q"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&R;", "key_sym": "R"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&S;", "key_sym": "S"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&T;", "key_sym": "T"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&U;", "key_sym": "U"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&V;", "key_sym": "V"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&W;", "key_sym": "W"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&X;", "key_sym": "X"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&Y;", "key_sym": "Y"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&Z;", "key_sym": "Z"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_big_1_", "key_sym": "A"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_big_2_", "key_sym": "B"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_big_3_", "key_sym": "C"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_big_4_", "key_sym": "D"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_big_5_", "key_sym": "E"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_big_6_", "key_sym": "F"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_big_7_", "key_sym": "G"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_big_8_", "key_sym": "H"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_big_9_", "key_sym": "I"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_big_10_", "key_sym": "J"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_big_11_", "key_sym": "K"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_big_12_", "key_sym": "L"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_big_13_", "key_sym": "M"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_big_14_", "key_sym": "N"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_big_15_", "key_sym": "O"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_big_16_", "key_sym": "P"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_big_17_", "key_sym": "Q"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_big_18_", "key_sym": "R"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_big_19_", "key_sym": "S"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_big_20_", "key_sym": "T"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_big_21_", "key_sym": "U"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_big_22_", "key_sym": "V"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_big_24_", "key_sym": "X"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_big_23_", "key_sym": "W"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_big_25_", "key_sym": "Y"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_eng_alphabet_big_26_", "key_sym": "Z"}));
 
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&one;", "key_sym": "1"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&two;", "key_sym": "2"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&three;", "key_sym": "3"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&four;", "key_sym": "4"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&five;", "key_sym": "5"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&six;", "key_sym": "6"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&seven;", "key_sym": "7"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&eight;", "key_sym": "8"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&nine;", "key_sym": "9"}));
-	this.allSymbolsTable.push(new this._Symbol({"html_name":"&null;", "key_sym": "0"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_1_", "key_sym": "а"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_2_", "key_sym": "б"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_3_", "key_sym": "в"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_4_", "key_sym": "г"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_5_", "key_sym": "д"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_6_", "key_sym": "е"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_7_", "key_sym": "ё"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_8_", "key_sym": "ж"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_9_", "key_sym": "з"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_10_", "key_sym": "и"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_11_", "key_sym": "й"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_12_", "key_sym": "к"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_13_", "key_sym": "л"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_14_", "key_sym": "м"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_15_", "key_sym": "н"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_16_", "key_sym": "о"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_17_", "key_sym": "п"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_18_", "key_sym": "р"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_19_", "key_sym": "с"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_20_", "key_sym": "т"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_21_", "key_sym": "у"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_22_", "key_sym": "ф"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_23_", "key_sym": "х"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_24_", "key_sym": "ц"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_25_", "key_sym": "ч"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_26_", "key_sym": "ш"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_27_", "key_sym": "щ"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_28_", "key_sym": "ъ"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_29_", "key_sym": "ы"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_30_", "key_sym": "ь"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_31_", "key_sym": "э"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_32_", "key_sym": "ю"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_small_33_", "key_sym": "я"}));
+
+
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_1_", "key_sym": "А"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_2_", "key_sym": "Б"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_3_", "key_sym": "В"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_4_", "key_sym": "Г"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_5_", "key_sym": "Д"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_6_", "key_sym": "Е"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_7_", "key_sym": "Ё"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_8_", "key_sym": "Ж"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_9_", "key_sym": "З"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_10_", "key_sym": "И"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_11_", "key_sym": "Й"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_12_", "key_sym": "К"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_13_", "key_sym": "Л"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_14_", "key_sym": "М"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_15_", "key_sym": "Н"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_16_", "key_sym": "О"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_17_", "key_sym": "П"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_18_", "key_sym": "Р"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_19_", "key_sym": "С"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_20_", "key_sym": "Т"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_21_", "key_sym": "У"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_22_", "key_sym": "Ф"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_24_", "key_sym": "Х"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_23_", "key_sym": "Ц"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_25_", "key_sym": "Ч"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_26_", "key_sym": "Ш"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_27_", "key_sym": "Щ"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_28_", "key_sym": "Ъ"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_29_", "key_sym": "Ы"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_30_", "key_sym": "Ь"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_31_", "key_sym": "Э"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_32_", "key_sym": "Ю"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name": "_rus_alphabet_big_33_", "key_sym": "Я"}));
+
+
+
+	this.allSymbolsTable.push(new this._Symbol({"load_name":"_one_", "key_sym": "1"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name":"_two_", "key_sym": "2"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name":"_three_", "key_sym": "3"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name":"_four_", "key_sym": "4"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name":"_five_", "key_sym": "5"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name":"_six_", "key_sym": "6"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name":"_seven_", "key_sym": "7"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name":"_eight_", "key_sym": "8"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name":"_nine_", "key_sym": "9"}));
+	this.allSymbolsTable.push(new this._Symbol({"load_name":"_null_", "key_sym": "0"}));
 
 
 	this.all3DObjectsTable = new Array();
@@ -439,11 +527,13 @@ var MathWorld = new function()
 		var prom = load3DColladaScene(this.ColladaLoader, "./resources/3D/all.dae");
 		prom.then(function(col_scene) {
 		for (var i = 0; i < this.allSymbolsTable.length; i++){
-			var obj = col_scene.getChildByName("_"+this.allSymbolsTable[i].htmlName.slice(1, -1)+"_", true); //присваиваем объект 
-			
+			if (this.allSymbolsTable[i].loadName !== null)
+				var obj = col_scene.getChildByName(this.allSymbolsTable[i].loadName, true); //присваиваем объект 
+			else
+				var obj = col_scene.getChildByName("_"+this.allSymbolsTable[i].htmlName.slice(1, -1)+"_", true); //присваиваем объект 
 			if (typeof obj === "undefined")
 			{
-				console.log("we have no object with name " + this.allSymbolsTable[i].htmlName);
+				console.log("we have no object with htmlName " + this.allSymbolsTable[i].htmlName);
 			}
 			else
 			{ // если obj != undefined

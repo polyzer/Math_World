@@ -7,6 +7,8 @@ MathWorld.World = function()
 		var clock = new THREE.Clock();
 
 
+		var hint_div = document.createElement("div");
+
 		function onMouseMove(event)
 		{
 			mouse_vector.x = (event.clientX / window.innerWidth) * 2 - 1;

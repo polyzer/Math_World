@@ -1,0 +1,54 @@
+#menu_div
+{
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	height: auto;
+}
+.menu_item
+{
+	position: relative;
+	display: inline;
+}
+.lesson_table
+{
+	position: absolute;
+	left: 0%;
+	top: 0%;
+	height: auto;
+	width: 100%;
+	background-color: #49423d;
+
+}
+.data_th
+{
+	position: absolute;
+	left: 0%;
+	top: 0%;
+	height: 50%;
+	width: 49%;
+	background-color: #49423d;
+}
+.description_th
+{
+	position: absolute;
+	left: 51%;
+	top: 0%;
+	height: 50%;
+	width: 49%;
+	word-break: break-all;
+	background: #f0f0f0;
+
+}
+
+.link_th
+{
+	position: absolute;
+	left: 51%;
+	top: 0%;
+	height: 50%;
+	width: 49%;
+	word-break: break-all;
+	background: #f0f0f0;
+
+}

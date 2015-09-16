@@ -134,9 +134,9 @@ if ($_SESSION["vk_simple_math"]["true_connection"] &&
 		$author_id = $_POST["author_id"];//Сделать преобразование $_POST
 		$date = date("Y-m-d");
 		$sections_id = $_POST["sections_id"];
-		$query = "UPDATE `results` SET `title` = '$title',
-										`author_id` = '$author_id',
-										`date` = '$date',
+		$query = "UPDATE `lessons` SET `title` = '$title',
+										/*`author_id` = '$author_id',*/
+										/*`date` = '$date',*/
 										`sections_id` = '$sections_id',
 									WHERE `id` = $id;";
 		if ($mysqli->query($query)) {
@@ -149,7 +149,7 @@ if ($_SESSION["vk_simple_math"]["true_connection"] &&
 		$id = $_POST["lesson_id"];
 		$title = $_POST["part_title"];
 		$index = $_POST["index"];
-		$query = "UPDATE `results` SET `title` = '$title',
+		$query = "UPDATE `lessons_parts` SET `title` = '$title',
 										`author_id` = '$author_id',
 										`date` = '$date',
 									WHERE `id` = $id;";
@@ -168,7 +168,7 @@ if ($_SESSION["vk_simple_math"]["true_connection"] &&
 		$link = $_POST["link"];
 		$type = $_POST["type"];
 		$unit_id = $_POST["unit_id"];
-		$query = "UPDATE `results` SET `part_id` = '$part_id',
+		$query = "UPDATE `lessons_parts_units` SET `part_id` = '$part_id',
 										`index` = '$index',
 										`data` = '$data',
 										`sections_id` = '$sections_id',
@@ -208,7 +208,7 @@ if ($_SESSION["vk_simple_math"]["true_connection"] &&
 		$second_column = $_POST["second_column"];
 		$third_column = $_POST["third_column"];//Сделать преобразование $_POST
 		$fourth_column = $_POST["fourth_column"];
-		$time_date = date("Y-m-d H:i:s");
+		$time_date = date("Y-m-d");
 		$VKID = $_POST["vk_id"];
 		$query = "UPDATE `results` SET `first_column` = '$first_column',
 										`second_column` = '$second_column',

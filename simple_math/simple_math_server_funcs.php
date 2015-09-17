@@ -183,8 +183,6 @@ if ($_SESSION["vk_simple_math"]["true_connection"] &&
 	}
 
 
-
-
 	if ($operation === "get_test_result") {
 		$VKID = $_POST["vk_id"];
 		$res = $mysqli->query("SELECT * FROM `results` WHERE `vk_id`='".$VKID."';");

@@ -14,197 +14,214 @@
  	</script>
  </head>
 <body>
-	<div id="lesson_title">
-		Алгебра
-	</div>
-	<div id="lesson_container_div"> 
-		<div class="lesson_part_table">
-			<div class="unit clear-fix">
-				<div class="data inline_divs">
-					<div class="math_data">
-						<math> 
-							<mrow>
-								<mi>a</mi>
-								<msup>
-									<mi>x</mi>
-									<mn>2</mn>
-								</msup>
-								<mo>+</mo>
-								<mi>b</mi>
-								<mi>x</mi>
-								<mo>+</mo>
-								<mi>c</mi>
-								<mo>=</mo>
-								<mn>0</mn>
-							</mrow>
-						</math>					
-					</div>
-					<div class="math_data">
-						<math> 
-							<mrow>
-								<mi>a</mi>
-								<msup>
-									<mi>x</mi>
-									<mn>2</mn>
-								</msup>
-								<mo>+</mo>
-								<mi>b</mi>
-								<mi>x</mi>
-								<mo>+</mo>
-								<mi>c</mi>
-								<mo>=</mo>
-								<mn>0</mn>
-							</mrow>
-						</math>					
-					</div>
-					<div class="math_data">
-						<math> 
-							<mrow>
-								<mi>a</mi>
-								<msup>
-									<mi>x</mi>
-									<mn>2</mn>
-								</msup>
-								<mo>+</mo>
-								<mi>b</mi>
-								<mi>x</mi>
-								<mo>+</mo>
-								<mi>c</mi>
-								<mo>=</mo>
-								<mn>0</mn>
-							</mrow>
-						</math>					
-					</div>
-					<div class="math_data">
-					$$\lim_{x \to \infty} \left(1 + \frac{1}{n} \right)^n = e$$
-					</div>
-				</div>
-				<div class="description inline_divs">
-					Квадратные уравнения и второй замечательный предел и может быть что-либо другое
-				</div>
-				<div class="link inline_divs">&#9755;</div>
+	<div id="full_lesson_container">
+		<div id="lesson_title">
+			Алгебра
+		</div>
+		<div id="lesson_container"> 
+			<div class="lesson_part">
+			<div class="lesson_part_title">
 			</div>
-			<div class="unit clear-fix">
-				<div class="data inline_divs">
-					<div class="math_data">
-						<math> 
-							<mrow>
-								<mi>a</mi>
-								<msup>
+				<div class="lesson_part_unit clear-fix">
+					<div class="data inline_divs">
+						<div class="math_data">
+							<math> 
+								<mrow>
+									<mi>a</mi>
+									<msup>
+										<mi>x</mi>
+										<mn>2</mn>
+									</msup>
+									<mo>+</mo>
+									<mi>b</mi>
 									<mi>x</mi>
-									<mn>2</mn>
-								</msup>
-								<mo>+</mo>
-								<mi>b</mi>
-								<mi>x</mi>
-								<mo>+</mo>
-								<mi>c</mi>
-								<mo>=</mo>
-								<mn>0</mn>
-							</mrow>
-						</math>
-					</div>
-					<div class="math_data">
-						<math> 
-							<mrow>
-								<mi>a</mi>
-								<msup>
+									<mo>+</mo>
+									<mi>c</mi>
+									<mo>=</mo>
+									<mn>0</mn>
+								</mrow>
+							</math>					
+						</div>
+						<div class="math_data">
+							<math> 
+								<mrow>
+									<mi>a</mi>
+									<msup>
+										<mi>x</mi>
+										<mn>2</mn>
+									</msup>
+									<mo>+</mo>
+									<mi>b</mi>
 									<mi>x</mi>
-									<mn>2</mn>
-								</msup>
-								<mo>+</mo>
-								<mi>b</mi>
-								<mi>x</mi>
-								<mo>+</mo>
-								<mi>c</mi>
-								<mo>=</mo>
-								<mn>0</mn>
-							</mrow>
-						</math>					
+									<mo>+</mo>
+									<mi>c</mi>
+									<mo>=</mo>
+									<mn>0</mn>
+								</mrow>
+							</math>					
+						</div>
+						<div class="math_data">
+							<math> 
+								<mrow>
+									<mi>a</mi>
+									<msup>
+										<mi>x</mi>
+										<mn>2</mn>
+									</msup>
+									<mo>+</mo>
+									<mi>b</mi>
+									<mi>x</mi>
+									<mo>+</mo>
+									<mi>c</mi>
+									<mo>=</mo>
+									<mn>0</mn>
+								</mrow>
+							</math>					
+						</div>
+						<div class="math_data">
+						$$\lim_{x \to \infty} \left(1 + \frac{1}{n} \right)^n = e$$
+						</div>
 					</div>
+					<div class="description inline_divs">
+						Квадратные уравнения и второй замечательный предел и может быть что-либо другое
+					</div>
+					<div class="links inline_divs">&#9755;</div>
+				</div>
+				<div class="lesson_part_unit clear-fix">
+					<div class="data inline_divs">
+						<div class="math_data">
+							<math> 
+								<mrow>
+									<mi>a</mi>
+									<msup>
+										<mi>x</mi>
+										<mn>2</mn>
+									</msup>
+									<mo>+</mo>
+									<mi>b</mi>
+									<mi>x</mi>
+									<mo>+</mo>
+									<mi>c</mi>
+									<mo>=</mo>
+									<mn>0</mn>
+								</mrow>
+							</math>
+						</div>
+						<div class="math_data">
+							<math> 
+								<mrow>
+									<mi>a</mi>
+									<msup>
+										<mi>x</mi>
+										<mn>2</mn>
+									</msup>
+									<mo>+</mo>
+									<mi>b</mi>
+									<mi>x</mi>
+									<mo>+</mo>
+									<mi>c</mi>
+									<mo>=</mo>
+									<mn>0</mn>
+								</mrow>
+							</math>					
+						</div>
 
+					</div>
+					<div class="description inline_divs">oin3u9b9ubfi9yuывафыварфышвапцщуншмгмыгвшапныфвща щшнпы ащшпфгцу пн293878п67а шгпавщш3278п98цуршгырващшфывадоисмдриывадb</div>
+					<div class="links inline_divs"></div>
 				</div>
-				<div class="description inline_divs">oin3u9b9ubfi9yub</div>
-				<div class="link inline_divs"></div>
+				<div class="lesson_part_unit clear-fix">
+					<div class="data inline_divs">
+						<div class="math_data">
+							<math> 
+								<mrow>
+									<mi>a</mi>
+									<msup>
+										<mi>x</mi>
+										<mn>2</mn>
+									</msup>
+									<mo>+</mo>
+									<mi>b</mi>
+									<mi>x</mi>
+									<mo>+</mo>
+									<mi>c</mi>
+									<mo>=</mo>
+									<mn>0</mn>
+								</mrow>
+							</math>					
+						</div>
+						<div class="math_data">
+							<math> 
+								<mrow>
+									<mi>a</mi>
+									<msup>
+										<mi>x</mi>
+										<mn>2</mn>
+									</msup>
+									<mo>+</mo>
+									<mi>b</mi>
+									<mi>x</mi>
+									<mo>+</mo>
+									<mi>c</mi>
+									<mo>=</mo>
+									<mn>0</mn>
+								</mrow>
+							</math>					
+						</div>
+						<div class="math_data">
+							<math> 
+								<mrow>
+									<mi>a</mi>
+									<msup>
+										<mi>x</mi>
+										<mn>2</mn>
+									</msup>
+									<mo>+</mo>
+									<mi>b</mi>
+									<mi>x</mi>
+									<mo>+</mo>
+									<mi>c</mi>
+									<mo>=</mo>
+									<mn>0</mn>
+								</mrow>
+							</math>					
+						</div>
+						<div class="math_data">
+						$$\lim_{x \to \infty} \left(1 + \frac{1}{n} \right)^n = e$$
+						</div>
+					</div>
+					<div class="description inline_divs">
+						Квадратные уравнения и второй замечательный предел
+					</div>
+					<div class="links inline_divs"></div>
+				</div>
+				
 			</div>
-			<div class="unit clear-fix">
-				<div class="data inline_divs">
-					<div class="math_data">
-						<math> 
-							<mrow>
-								<mi>a</mi>
-								<msup>
-									<mi>x</mi>
-									<mn>2</mn>
-								</msup>
-								<mo>+</mo>
-								<mi>b</mi>
-								<mi>x</mi>
-								<mo>+</mo>
-								<mi>c</mi>
-								<mo>=</mo>
-								<mn>0</mn>
-							</mrow>
-						</math>					
-					</div>
-					<div class="math_data">
-						<math> 
-							<mrow>
-								<mi>a</mi>
-								<msup>
-									<mi>x</mi>
-									<mn>2</mn>
-								</msup>
-								<mo>+</mo>
-								<mi>b</mi>
-								<mi>x</mi>
-								<mo>+</mo>
-								<mi>c</mi>
-								<mo>=</mo>
-								<mn>0</mn>
-							</mrow>
-						</math>					
-					</div>
-					<div class="math_data">
-						<math> 
-							<mrow>
-								<mi>a</mi>
-								<msup>
-									<mi>x</mi>
-									<mn>2</mn>
-								</msup>
-								<mo>+</mo>
-								<mi>b</mi>
-								<mi>x</mi>
-								<mo>+</mo>
-								<mi>c</mi>
-								<mo>=</mo>
-								<mn>0</mn>
-							</mrow>
-						</math>					
-					</div>
-					<div class="math_data">
-					$$\lim_{x \to \infty} \left(1 + \frac{1}{n} \right)^n = e$$
-					</div>
-				</div>
-				<div class="description inline_divs">
-					Квадратные уравнения и второй замечательный предел
-				</div>
-				<div class="link inline_divs"></div>
-			</div>
-			
 		</div>
 	</div>
-
 <script>
+
+// пробуем добавить!
 	var unit_div = document.createElement("div");
-	unit_div.class = "unit clear-fix";
+	unit_div.setAttribute("class", "lesson_part_unit clear-fix");
 	var des_div = document.createElement("div");
-	des_div.class = "description inline_divs";
-	var link_div = document.createElement("div");
-	link_div.class = "link inline_divs";
+	des_div.setAttribute("class", "description inline_divs");
+	var links_div = document.createElement("div");
+	links_div.setAttribute("class", "links inline_divs");
 	var data_div = document.createElement("div");
-	data_div.class = "data clear-fx";
+	data_div.setAttribute("class", "data inline_divs");
+
+	var Parts = document.getElementsByClassName("lesson_part");
+	Parts[0].appendChild(unit_div);
+	unit_div.appendChild(data_div);
+	unit_div.appendChild(des_div);
+	unit_div.appendChild(links_div);
+	data_div.innerHTML = '<div class="math_data">$$\\lim_{x \\to \\infty} \\left(1 + \\frac{1}{n} \\right)^n = e$$</div>';
+	des_div.innerHTML = '<p>THERE ARE SOME TEXT</p>';
+	links_div.innerHTML = '&#9755;';
+
+	window.alert(data_div.innerHTML);
+//
 
 
 	var _User = function (params)
@@ -232,7 +249,6 @@
 		var IdKey,
 			Title, // название всего урока
 			Author, // автор
-			Date, // дата создания
 			PartsArray; // массив частей
 		this.PartsArray = new Array();
 
@@ -277,27 +293,46 @@
 
 	}
 
-	var _Unit = function () 
+	var _Lesson_Part_Unit = function () 
 	{
 		var Type;
+		var Descriptions;
+		var Datas;
+		var Links;
 
 	}
+	var _Lesson_Part_Unit_Data = function() 
+	{
+		var ID;
+		var Inner;
+		var UnitIndex;
+	}
+	var _Lesson_Part_Unit_Description = function ()
+	{
+		var ID;
+		var Inner;
+		var UnitIndex;
+	}
+	var _Lesson_Part_Unit_Link = function () 
+	{
+		var ID;
+		var Inner;
+		var UnitIndex;
+	}
 
-	function doAjaxRequest(datas)
+	function doAjaxRequest(req_data)
 	{
 		var request = new XMLHttpRequest();
 		request.parent = this;
 		request.open("POST", "/simple_math_server_funcs.php", true);
 		request.onreadystatechange = function() 
 		{
-			if (request.readyState === 4 && (request.status === 200 || request.statusText==="OK")) 
-			{
-				// разбор ответа
 
-			}
+			
+
 		}
 		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		request.send(datas);
+		request.send(req_data.request_text);
 
 	}
 

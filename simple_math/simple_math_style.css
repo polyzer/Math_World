@@ -1,4 +1,4 @@
-#lesson_container_div
+#lesson_container
 {
 	top: 7%;
 	position: absolute;
@@ -21,7 +21,7 @@
 	background-color: #d6d6d6;
 
 }
-.lesson_part_table
+.lesson_part
 {
 	position: relative;
 	left: 0%;
@@ -34,7 +34,7 @@
 	border-bottom: 2px solid white;
 
 }
-.unit
+.lesson_part_unit
 {
 	position: relative;
 	padding: 1%;
@@ -45,7 +45,7 @@
 	transition-property: opacity;
 	transition-duration: 0.05s;
 }
-.unit:hover
+.lesson_part_unit:hover
 {
 	padding-top: 2%;
 	padding-bottom: 2%;
@@ -54,19 +54,28 @@
 	transition-duration: 0.5s 0.5s 0.5s;
 	box-shadow: 0 0 10px white;
 }
+.lesson_part_unit
+{
+	position: relative;
+	padding: 1%;
+	margin: 0 auto;
+	opacity: 0.2;
+	border-top: 1px solid white;
+	border-bottom: 1px solid white;
+	transition-property: opacity;
+	transition-duration: 0.05s;
+}
 .data
 {
 	left: 1%;
 	width: 45%;
 	background-color: #cafcca;	
 	font-size: 130%;
-	border-left: 1px solid #aa8ebf;
-	border-right: 1px solid #aa8ebf;
 }
 .data:hover
 {
-	background-color: white;
-	transition-property: background-color;
+	border-left: 5px solid blue;
+	background-color: #F0F0F0;
 	transition-duration: 0.5s;
 }
 .description
@@ -83,7 +92,7 @@
 	font-size: 120%;
 	vertical-align: middle;
 }
-.link
+.links
 {
 	height: 50px;
 	width: 5%;
@@ -94,17 +103,7 @@
 	vertical-align: middle;
 	cursor: pointer;
 }
-.link
-{
-	height: 50px;
-	width: 5%;
-	word-break: break-all;
-	background: #f0f0f0;
-	font-size: 200%;
-	text-align: center;
-	vertical-align: middle;
 
-}
 .inline_divs
 {
 	float: left;
@@ -117,8 +116,8 @@
 }
 .math_data:hover	
 {
-	border-left: 2px solid blue;
-	transition-property: border-left;
+	border-left: 4px solid blue;
+	border-right: 4px solid blue;
 	transition-duration: 0.3s;
 }
 .clear-fix:before, .clear-fix:after {

@@ -1,3 +1,12 @@
+#full_lessons_container
+{
+	width: 100%;
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	background-color: black;
+	z-index: 2;
+}
 #lesson_container
 {
 	top: 7%;

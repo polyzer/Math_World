@@ -1,31 +1,40 @@
-#full_lessons_container
+#main_previews_div
+{
+	position: absolute;
+	z-index: 2;
+}
+#previews_content_div
+{}
+.preview
+{
+	position: relative;
+}
+#main_lessons_div
 {
 	width: 100%;
 	position: absolute;
 	top: 0%;
 	left: 0%;
 	background-color: black;
-	z-index: 2;
+	z-index: 1;
 }
-#lesson_container
+#lesson_content_div
 {
 	top: 7%;
-	position: absolute;
+	position: relative;
 	left: 0%;
 	height: 100%;
 	width: 100%;
 	background-color: gray;
 }
-#lesson_title
+#lesson_title_div
 {
-	left: 0%;
-	top: 0%;
 	padding-top: 1%;
 	padding-bottom: 1%;
 	width: 100%;
 	text-align: center;
 	font: 210% "Arial-Black";
-	position: absolute;
+	position: relative;
 	z-index: 2;
 	background-color: #d6d6d6;
 

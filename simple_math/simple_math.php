@@ -14,11 +14,11 @@
  	</script>
  </head>
 <body>
-	<div id="full_lessons_container">
-		<div id="lesson_title">
+	<div id="main_lessons_div">
+		<div id="lesson_title_div">
 			Алгебра
 		</div>
-		<div id="lesson_container"> 
+		<div id="lesson_content_div"> 
 			<div class="lesson_part">
 			<div class="lesson_part_title">
 			</div>
@@ -206,18 +206,24 @@ var MathLessons = new function()
 {
 
 	// Классы:
-	var _User,
-		_Lesson,
-		_Lesson_Part,
-		_Lesson_Part_Unit,
-		_Lesson_Part_Unit_Data,
-		_Lesson_Part_Unit_Description,
-		_Lesson_Part_Unit_Link;
+	var _User, // Этот класс описывает юзера! -создатели уроков/ученики/админы
+		_Lesson_Content, // Это класс контента урока!
+		_Lesson_Part, // Это части урока! - содержатся в lesson-контенте
+		_Lesson_Part_Unit, // юнит - содержится в lesson part
+		_Lesson_Part_Unit_Data, // это уравнения - содержатся в 
+		_Lesson_Part_Unit_Description, // описание уравнений
+		_Lesson_Part_Unit_Links, // это какая-то ссылка
+		_Previews_Content, // это див с превьюшкками
+		_Preview; // превью
 
-	// Отображаемые, контейнеры:
+
+	///////////// GLOBAL OBJECTS ///////////////////////
+	var MainDisplayElements;
+	// Отображаемые контейнеры:
 	// Здесь хранятся не только объекты, но и параметры
-	var DisplayElements = new Object();
-	this.DisplayElements["parameters"] = 
+
+	this.MainDisplayElements = new Object();
+	this.MainDisplayElements["parameters"] = 
 	{
 		// свойства класс для разных создаваемых нами компонентов
 		"classes" : 
@@ -226,15 +232,64 @@ var MathLessons = new function()
 			"Description": "descrition inline_divs",
 			"Links": "links inline_divs",
 			"Unit" : "lesson_part_unit clear-fix",
-			"Part" : "lessons_part"
+			"Part" : "lessons_part",
+			"Preview" : "preview",
 		}
 	};
-	this.DisplayElements["divs"] = {
+	this.MainDisplayElements["divs"] = {
 		// самый главный div, который будет отображаться,
-		"full_lessons_container" : document.getElementById("full_lessons_container"),
-		"Parts" 
+		// Он только отображается, не меняется!
+		// Этот див можно вытаскивать и всовывать в body!
+		// таким образом будет меняться отображаемый объект!
+		"main_lessons_div" : createElementWParams({
+			"id" : "main_lessons_div",
+			"element" : "div"
+		}),
+		// Это элемент, в котором будет только меняться содержимое,
+		// сам он пересоздаваться не должен!
+		"lesson_title_div" : createElementWParams({
+			"id" : "lesson_title",
+			"element" : "div"
+		}),
+		// Это Основной div для для хранения previews
+		"main_previews_div" : createElementWParams({
+			"id": "main_previews_div",
+			"element" : "div"
+		}),
+
+		"previews_title_div" : createElementWParams({
+			"id": "previews_title_div",
+			"element": "div"
+		})
 	};
 
+	this.MainDisplayElements.insertDivs = function () 
+	{
+		document.body.appendChild(this.divs.main_lessons_div);
+		this.divs.main_lessons_div.appendChild(this.divs.lesson_title_div);
+		document.body.appendChild(this.divs.main_previews_div);
+		this.divs.main_previews_div.appendChild(this.divs.previews_title_div);
+	};
+
+	this.MainDisplayElements.setPreviewsTitle = function (params) 
+	{
+		if (params)
+		{
+			if (params.PreviewTitle)
+				this.previews_title_div.innerHTML = params.PreviewTitle;
+		}
+
+	}
+
+	this.MainDisplayElements.setLessonTitle = function (params) 
+	{
+		if (params)
+		{
+			if (params.LessonTitle)
+				this.lesson_title_div.innerHTML = params.LessonTitle;
+		}
+
+	}
 
 	// пробуем добавить!
 	var unit_div = document.createElement("div");
@@ -256,115 +311,248 @@ var MathLessons = new function()
 	this.links_div.innerHTML = '&#9755;';
 
 	window.alert(this.data_div.innerHTML);
-//
-
-	this._User = function (params)
+// класс div'a с Превьюшками. Подразумевается существование
+// единственного объекта данного класса!
+	this._Previews_Content = function(params)
 	{
-		var FullName,
-			Login,
-			Pass,
-			IdKey;
+		var Div;
+			this.Div = document.createElement("div");
+			this.Div.setAttribute("id", "previews_content");
+		
+		var Variables;
+			this.Variables = new Object();
+		//Массив Превьюшек
+			this.Variables.PreviewsArray = new Array();
 		if (params)
 		{
-			if(params.FullName)
-				this.FullName = params.FullName;
-			if (params.Login)
-				this.Login = params.Login;
-			if (params.Pass)
-				this.Pass = params.Pass;
-			if (params.IdKey)
-				this.IdKey = params.IdKey;
-		}
-	}
-
-	this._Lesson = function (params) 
-	{
-		var IdKey,
-			Title, // название всего урока
-			Author, // автор
-			PartsArray; // массив частей
-		this.PartsArray = new Array();
-
-		if(params)
-		{
-			if (params.IdKey)
-			{
-				this.IdKey = params.IdKey;
-			}
 			if (params.Title)
-			{
-				this.Title = params.Title;
-			}
-			if (params.Author)
-			{
-				this.Author = params.Author;
-			}
-			if (params.Date)
-			{
-				this.Date = params.Date;
-			}
-			if (params.Parts)
-			{
-				this.PartsArray = Parts;
-			}			
-		} else
+				this.Variables.Title = params.Title;
+			if (params.PreviewsArray)
+				this.Variables.PreviewsArray = params.PreviewsArray;
+		}
+
+
+		// в параметрах передается тип загрузки:
+		// type:
+		// -- all = загружаем все! (последние 50)
+		// -- rate = по рейтингу!
+		// -- sections = по секции!
+		function loadPreviewsByParameters(params)
 		{
-			this.Title = "Новый Урок";
-			this.Author = this.user.name;
-			this.PartsArray.push(_Part_Of_Lesson({ status : "new"})); // вставляем новый урок
+			doAjaxRequest(params);
+		}
+
+		function setPreviews(data)
+		{
+			for (prev in data.previews)
+			{
+				var Prev = new _Lesson_Preview(prev);
+				this.Variables.PreviewsArray.push(Prev);
+			}
 		}
 
 	};
 
-	this._Lesson_Part = function() 
+// Это превьюшка. Будет состоять из:
+// названия урока, Картинки,  
+	this._Lesson_Preview = function()
 	{
-		var Title, //название раздела урока
-			IndexNumber, //порядковый номер данной части в уроке
-			UnitsArray; // Здесь хранятся данные для отображения в юнитах (данные и описания)
+		var Div;
+			this.Div = MathLessons.
 
+		var Variables = new Object();
+			this.Variables.Title;
+			this.Variables.Image;
+			this.Variables.IdKey;
+
+		function addDiv(params) 
+		{
+			if (params)
+			{
+				if (params.to)
+				{
+					params.to.appendChild(this.Div);
+				}
+			}
+		}
 	}
 
+	this._User = function (params)
+	{
+		// Переменные удобнее хранить в Объекте!
+		// ибо их можно легко сохранить в JSON!!!
+		var Variables;
+			this.Variables = new Object();
+			this.Variables.FullName;
+			this.Variables.Login;
+			this.Variables.Pass;
+			this.Variables.IdKey;
+		
+		if (params)
+		{
+			if(params.FullName)
+				this.Variables.FullName = params.FullName;
+			if (params.Login)
+				this.Variables.Login = params.Login;
+			if (params.Pass)
+				this.Variables.Pass = params.Pass;
+			if (params.IdKey)
+				this.Variables.IdKey = params.IdKey;
+		}
+	}
+
+	this._Lesson_Content = function (params) 
+	{
+		var Div = document.getElementById("lesson_content_div");
+		var Variables = new Object();
+			this.Variables.IdKey;
+			this.Variables.Title;
+			this.Variables.Author;
+			this.Variables.Date;
+			this.Variables.PartsArray = new Array();
+		
+		if(params)
+		{
+			if (params.IdKey)
+				this.Variables.IdKey = params.IdKey;
+			if (params.Title)
+				this.Variables.Title = params.Title;
+			if (params.Author)
+				this.Variables.Author = params.Author;
+			if (params.Date)
+				this.Variables.Date = params.Date;
+			if (params.Parts)
+				this.Variables.PartsArray = params.Parts;
+		}
+
+		function addDiv(params) 
+		{
+			if (params)
+			{
+				if (params.to)
+				{
+					params.to.appendChild(this.Div);
+				}
+			}
+		}
+	};
+
+	this._Lesson_Part = function() 
+	{
+		var Div;
+		var Variables;
+			this.Variables = new Object();
+			this.Variables.Title; //название раздела урока
+			this.Variables.IndexNumber; //порядковый номер данной части в уроке
+			this.Variables.UnitsArray = new Array(); // Здесь хранятся данные для отображения в юнитах (данные и описания)
+		this.Div;
+		function addDiv(params) 
+		{
+			if (params)
+			{
+				if (params.to)
+				{
+					params.to.appendChild(this.Div);
+				}
+			}
+		}
+	}
 	this._Lesson_Part_Unit = function () 
 	{
-		var Type;
-		var Descriptions;
-		var Datas;
-		var Links;
-
+		var Div;
+		var Variables;
+			this.Variables = new Object();
+			this.Variables.Type; // тип юнита. Предполагаемые - Определение, Пример, 
+			this.Variables.Description;
+			this.Variables.Datav
+			this.Variables.Links;
+			this.Variables.DatasArray = new Array();
+			this.Variables.DescriptionsArray = new Array();
+			this.Variables.LinksArray = new Array();
+		this.Div;
+		function addDiv(params) 
+		{
+			if (params)
+			{
+				if (params.to)
+				{
+					params.to.appendChild(this.Div);
+				}
+			}
+		}
 	}
 	this._Lesson_Part_Unit_Data = function() 
 	{
-		var ID;
-		var Inner;
-		var UnitIndex;
+		var Div;
+		var Variables;
+			this.Variables = new Object();
+			this.Variables.IdKey;
+			this.Variables.Inner;
+		this.Div;
+		function addDiv(params) 
+		{
+			if (params)
+			{
+				if (params.to)
+				{
+					params.to.appendChild(this.Div);
+				}
+			}
+		}
 	}
 	this._Lesson_Part_Unit_Description = function ()
 	{
-		var ID;
-		var Inner;
-		var UnitIndex;
+		var Div;
+		var Variables;
+			this.Variables = new Object();
+			this.Variables.ID;
+			this.Variables.Inner;
+		this.Div;
+		function addDiv(params) 
+		{
+			if (params)
+			{
+				if (params.to)
+				{
+					params.to.appendChild(this.Div);
+				}
+			}
+		}
 	}
 	this._Lesson_Part_Unit_Link = function () 
 	{
-		var ID;
-		var Inner;
-		var UnitIndex;
+		var Div;
+		var Variables;
+			this.Variables = new Object();
+			this.Variables.IdKey;
+			this.Variables.Inner;
+		this.Div;
+		function addDiv(params) 
+		{
+			if (params)
+			{
+				if (params.to)
+				{
+					params.to.appendChild(this.Div);
+				}
+			}
+		}
 	}
 
 	// req_data - JSON объект
 	// подразумевается следующие параметры:
 	// request_text - текст запроса
-	// ready_func - функция, которая будет вызвана
+	// ready_function - функция, которая будет вызвана
 	// после выполнения запроса
 	// 
 	function doAjaxRequest(req_data)
 	{
 		var request = new XMLHttpRequest();
 		request.parent = this;
-		request.open("POST", "/simple_math_server_funcs.php", true);
+		request.open("POST", "/simple_math_server_funcs.php", false);
 		request.onreadystatechange = function() 
 		{
-			req_data.ready_func(request);
+			req_data.ready_function(request);
 		}
 		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		request.send(req_data.request_text);
@@ -396,17 +584,6 @@ var MathLessons = new function()
 		return el;
 	}
 
-	// функция создает элементы Lesson,
-	// (Data, Description, Links)
-	// получаемые из AJAX
-	function createAndReturnObject(params)
-	{
-		if(params)
-		{
-
-		}
-	}
-
 	// Данная функция инициализирует новый урок.
 	// load - загрузка существующего по параметру (id)
 	// create - создание нового и сохранение
@@ -426,12 +603,13 @@ var MathLessons = new function()
 		}
 	}
 
-	function getAllLessonsByParameter(params)
+	// Создает И показывает див с превьюшками уроков!
+	function createLessonsPreviewsPage(previews)
 	{
-		if (params)
-		{
-			
-		}
+		//Функция ожидает на вход JSON-объект
+		//у которого элементы параметр-значение
+		//задают Title урока и
+		 
 	}
 
 };

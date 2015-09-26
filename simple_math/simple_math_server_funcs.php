@@ -26,15 +26,20 @@ if ($_SESSION["math_world"]["true_connection"] &&
 	//и через них найти
 	if ($params["operation"] === "get_lessons_previews")
 	{
-		if ($params[""])
-		$sections_ids = explode($params["sections_ids"], ',');
-		$quer = "SELECT id,title FROM `lessons` WHERE ";
-		for($i=0; $i < count($sections_ids); $i++)
+		if ($params["by"] === "sections")
 		{
-			if ($i == (count($sections_ids) - 1))
-				$quer .= "`sections_ids` =".$i.";";
-			else
-				$quer .= "`sections_ids` =".$i." OR ";				
+			$sections_ids = explode($params["sections_ids"], ',');
+			$quer = "SELECT id,title FROM `lessons` WHERE ";
+			for($i=0; $i < count($sections_ids); $i++)
+			{
+				if ($i == (count($sections_ids) - 1))
+					$quer .= "`sections_ids` =".$i.";";
+				else
+					$quer .= "`sections_ids` =".$i." OR ";				
+			}
+		} else if ($params["by"] === "name")
+		{
+
 		}
 		$res = $mysqli->query($quer);
 		$retArr = array();

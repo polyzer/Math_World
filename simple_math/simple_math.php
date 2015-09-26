@@ -212,10 +212,15 @@ var MathLessons = new function()
 		_Lesson_Part_Unit, // юнит - содержится в lesson part
 		_Lesson_Part_Unit_Data, // это уравнения - содержатся в 
 		_Lesson_Part_Unit_Description, // описание уравнений
-		_Lesson_Part_Unit_Links, // это какая-то ссылка
+		_Lesson_Part_Unit_Link, // это какая-то ссылка
 		_Previews_Content, // это див с превьюшкками
 		_Preview; // превью
 
+	// Функции:
+	var init, // пока не знаю зачем эта функция
+		doAjaxRequest, // делает запросы на сервак и возвращает ответы в функцию
+		createElementWParams, // создает элемент с указанными параметрами
+		createLessonsPreviewsPage; // создает страницу с превьюшками
 
 	///////////// GLOBAL OBJECTS ///////////////////////
 	var MainDisplayElements;
@@ -323,6 +328,12 @@ var MathLessons = new function()
 			this.Variables = new Object();
 		//Массив Превьюшек
 			this.Variables.PreviewsArray = new Array();
+		
+		//Funcs	
+		var loadPreviewsFromServer,
+			setPreviews;
+
+
 		if (params)
 		{
 			if (params.Title)
@@ -333,24 +344,27 @@ var MathLessons = new function()
 
 
 		// в параметрах передается тип загрузки:
-		// type:
+		// by:
 		// -- all = загружаем все! (последние 50)
 		// -- rate = по рейтингу!
 		// -- sections = по секции!
-		function loadPreviewsByParameters(params)
+		//		-- тогда в JSON объекте должен быть массив
+		//		-- c с именем sections_ids, содержащий idшники
+		//		-- всех секций с уроками
+		this.loadPreviewsFromServer = function (params)
 		{
+			params.onReadyFunction = this.setPreviews;
 			doAjaxRequest(params);
 		}
 
-		function setPreviews(data)
+		this.setPreviews = function (data)
 		{
-			for (prev in data.previews)
+			for (prev in data.Previews(previews)
 			{
 				var Prev = new _Lesson_Preview(prev);
 				this.Variables.PreviewsArray.push(Prev);
 			}
 		}
-
 	};
 
 // Это превьюшка. Будет состоять из:
@@ -361,11 +375,14 @@ var MathLessons = new function()
 			this.Div = MathLessons.
 
 		var Variables = new Object();
-			this.Variables.Title;
-			this.Variables.Image;
-			this.Variables.IdKey;
+			this.Variables.Title; // просто текст
+			this.Variables.Image; // пока не знаю
+			this.Variables.IdKey; // айдишник
 
-		function addDiv(params) 
+		// функции
+		var addDiv;
+
+		this.addDiv = function (params) 
 		{
 			if (params)
 			{
@@ -387,6 +404,8 @@ var MathLessons = new function()
 			this.Variables.Login;
 			this.Variables.Pass;
 			this.Variables.IdKey;
+
+		var addDiv;
 		
 		if (params)
 		{
@@ -410,6 +429,8 @@ var MathLessons = new function()
 			this.Variables.Author;
 			this.Variables.Date;
 			this.Variables.PartsArray = new Array();
+
+		var addDiv;
 		
 		if(params)
 		{
@@ -425,7 +446,7 @@ var MathLessons = new function()
 				this.Variables.PartsArray = params.Parts;
 		}
 
-		function addDiv(params) 
+		this.addDiv = function (params) 
 		{
 			if (params)
 			{
@@ -437,16 +458,30 @@ var MathLessons = new function()
 		}
 	};
 
-	this._Lesson_Part = function() 
+	this._Lesson_Part = function(params) 
 	{
 		var Div;
 		var Variables;
 			this.Variables = new Object();
 			this.Variables.Title; //название раздела урока
+			this.Variables.IdKey;
 			this.Variables.IndexNumber; //порядковый номер данной части в уроке
 			this.Variables.UnitsArray = new Array(); // Здесь хранятся данные для отображения в юнитах (данные и описания)
 		this.Div;
-		function addDiv(params) 
+
+		var addDiv;
+
+		if (params)
+		{
+			if (params.Title)
+				this.Variables.Title = params.Title;
+			if (params.IndexNumber)
+				this.Variables.IndexNumber = params.IndexNumber;
+			if (params.UnitsArray)
+				this.Variables.UnitsArray = params.UnitsArray;
+		}
+
+		this.addDiv = function (params) 
 		{
 			if (params)
 			{
@@ -457,39 +492,36 @@ var MathLessons = new function()
 			}
 		}
 	}
-	this._Lesson_Part_Unit = function () 
+	this._Lesson_Part_Unit = function (params) 
 	{
 		var Div;
 		var Variables;
 			this.Variables = new Object();
 			this.Variables.Type; // тип юнита. Предполагаемые - Определение, Пример, 
 			this.Variables.Description;
-			this.Variables.Datav
-			this.Variables.Links;
-			this.Variables.DatasArray = new Array();
-			this.Variables.DescriptionsArray = new Array();
-			this.Variables.LinksArray = new Array();
-		this.Div;
-		function addDiv(params) 
-		{
-			if (params)
-			{
-				if (params.to)
-				{
-					params.to.appendChild(this.Div);
-				}
-			}
-		}
-	}
-	this._Lesson_Part_Unit_Data = function() 
-	{
-		var Div;
-		var Variables;
-			this.Variables = new Object();
+			this.Variables.Data;
+			this.Variables.Link;
+			this.Variables.IndexNumber;
 			this.Variables.IdKey;
-			this.Variables.Inner;
 		this.Div;
-		function addDiv(params) 
+
+		var addDiv;
+
+		if (params)
+		{
+			if (params.Type)
+				this.Variables.Type = params.Type;
+			if (params.Description)
+				this.Variables.Description = params.Description;
+			if (params.Data)
+				this.Variables.Data = params.Data;
+			if (params.Links)
+				this.Variables.Links = params.Links;
+			if (params.IndexNumber)
+				this.Variables.IndexNumber = params.IndexNumber;
+		}
+
+		this.addDiv = function (params) 
 		{
 			if (params)
 			{
@@ -500,15 +532,50 @@ var MathLessons = new function()
 			}
 		}
 	}
-	this._Lesson_Part_Unit_Description = function ()
+	this._Lesson_Part_Unit_Data = function(params) 
 	{
 		var Div;
 		var Variables;
 			this.Variables = new Object();
-			this.Variables.ID;
 			this.Variables.Inner;
 		this.Div;
-		function addDiv(params) 
+
+		var addDiv;
+
+		if (params)
+		{
+			if (params.Inner)
+				this.Variables.Inner = params.Inner;
+		}
+
+		this.addDiv = function (params) 
+		{
+			if (params)
+			{
+				if (params.to)
+				{
+					params.to.appendChild(this.Div);
+				}
+			}
+		}
+	}
+	this._Lesson_Part_Unit_Description = function (params)
+	{
+		var Div;
+		var Variables;
+			this.Variables = new Object();
+			this.Variables.Inner;
+		this.Div;
+
+		var addDiv;
+
+		if (params)
+		{
+			if (params.Inner)
+				this.Variables.Inner = params.Inner;
+		}
+
+		this.addDiv = function (params) 
 		{
 			if (params)
 			{
@@ -524,10 +591,19 @@ var MathLessons = new function()
 		var Div;
 		var Variables;
 			this.Variables = new Object();
-			this.Variables.IdKey;
 			this.Variables.Inner;
 		this.Div;
-		function addDiv(params) 
+
+		var addDiv;
+
+		if (params)
+		{
+			if (params.Inner)
+				this.Variables.Inner = params.Inner;
+		}
+
+
+		this.addDiv = function (params) 
 		{
 			if (params)
 			{
@@ -545,22 +621,22 @@ var MathLessons = new function()
 	// ready_function - функция, которая будет вызвана
 	// после выполнения запроса
 	// 
-	function doAjaxRequest(req_data)
+	this.doAjaxRequest = function (req_data)
 	{
 		var request = new XMLHttpRequest();
 		request.parent = this;
 		request.open("POST", "/simple_math_server_funcs.php", false);
 		request.onreadystatechange = function() 
 		{
-			req_data.ready_function(request);
+			req_data.onReadyFunction(request);
 		}
 		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		request.send(req_data.request_text);
+		request.send(req_data.requestText);
 
 	}
 
 
-	function createElementWParams(params)
+	this.createElementWParams =	function(params)
 	{
 		if (params){
 			var el = document.createElement(params.element);
@@ -579,16 +655,15 @@ var MathLessons = new function()
 				}
 				el.style.setAttribute(propNames[i], params[propNames[i]]);
 			}
-
-		}
 		return el;
+		}
 	}
 
 	// Данная функция инициализирует новый урок.
 	// load - загрузка существующего по параметру (id)
 	// create - создание нового и сохранение
 	// Надо еще придумать режим редактирования
-	function Init(params)
+	this.init = function (params)
 	{
 		if(params)
 		{
@@ -604,7 +679,7 @@ var MathLessons = new function()
 	}
 
 	// Создает И показывает див с превьюшками уроков!
-	function createLessonsPreviewsPage(previews)
+	this.createLessonsPreviewsPage = function (previews)
 	{
 		//Функция ожидает на вход JSON-объект
 		//у которого элементы параметр-значение
